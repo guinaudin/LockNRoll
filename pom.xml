@@ -27,5 +27,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.sonatype.maven.plugin</groupId>
+      <artifactId>emma-maven-plugin</artifactId>
+      <version>1.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
