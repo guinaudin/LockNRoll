@@ -1,8 +1,8 @@
-package Model.Board;
+package model.board;
 
-import Model.Constant;
-import Model.Dice.Dice;
-import Model.Dice.GameDice;
+import model.Constant;
+import model.dice.Dice;
+import model.dice.GameDice;
 
 public class Board {
     private GameDice[] rolledDice;

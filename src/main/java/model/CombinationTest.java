@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Model.Dice.Dice;
-import Model.Dice.GameDice;
+import model.dice.Dice;
+import model.dice.GameDice;
 
 public class CombinationTest {
     private int color;

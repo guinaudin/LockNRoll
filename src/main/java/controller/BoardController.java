@@ -1,8 +1,8 @@
-package Controller;
+package controller;
 
-import Model.Board.Board;
-import Model.BoardModel;
-import View.JFrameBoard;
+import model.board.Board;
+import model.BoardModel;
+import view.JFrameBoard;
 
 public class BoardController {
     public BoardView mainView;

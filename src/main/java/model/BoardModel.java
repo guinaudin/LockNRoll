@@ -1,9 +1,6 @@
-package Model;
+package model;
 
-import Model.Board.BoardListener;
-import Model.Board.BoardChangedEvent;
-import Model.Board.Board;
-import javax.swing.event.EventListenerList;
+import model.board.Board;
 
 public class BoardModel {
     private Board board;
