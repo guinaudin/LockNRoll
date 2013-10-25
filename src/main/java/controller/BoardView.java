@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Model.Board.BoardListener;
+import model.board.BoardListener;
 
 public abstract class BoardView implements BoardListener {
     private BoardController controller = null;

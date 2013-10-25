@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Model.Board.Board;
-import Model.Dice.Dice;
+import model.board.Board;
+import model.dice.Dice;
 
 public class CaseTest {
     private Board board;

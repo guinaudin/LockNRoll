@@ -1,10 +1,10 @@
-package View;
+package view;
 
-import Controller.BoardController;
-import Controller.BoardView;
-import Model.Board.Board;
-import Model.Board.BoardChangedEvent;
-import Model.BoardModel;
+import controller.BoardController;
+import controller.BoardView;
+import model.board.Board;
+import model.board.BoardChangedEvent;
+import model.BoardModel;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

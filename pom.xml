@@ -19,7 +19,6 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>6.8.7</version>
-      <scope>test</scope>
       <exclusions>
         <exclusion>
           <artifactId>junit</artifactId>
@@ -28,10 +27,19 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.sonatype.maven.plugin</groupId>
-      <artifactId>emma-maven-plugin</artifactId>
-      <version>1.2</version>
-      <scope>test</scope>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cobertura-maven-plugin</artifactId>
+      <version>2.6</version>
     </dependency>
   </dependencies>
+
+  <reporting>
+  <plugins>
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cobertura-maven-plugin</artifactId>
+      <version>2.6</version>
+    </plugin>
+  </plugins>
+</reporting>
 </project>

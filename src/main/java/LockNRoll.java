@@ -1,7 +1,5 @@
-
-
-import Controller.BoardController;
-import Model.BoardModel;
+import controller.BoardController;
+import model.BoardModel;
 import javax.swing.SwingUtilities;
 
 public class LockNRoll {
