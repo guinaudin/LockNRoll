@@ -289,4 +289,56 @@ public class CombinationTestTest {
     void testIncorrectTwoPairCombination(Dice[] combination) {
         Assert.assertEquals(CT.testTwoPair(combination), false);
     }
+    
+    /**################################################################
+    #                       PairColorPairNumber                       #
+    ################################################################**/
+    
+    @DataProvider(name = "CorrectPairColorPairNumber")
+    public Object[][] createCorrectPairColorPairNumberCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.BLUE.getInt()), 
+                new GameDice(3, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.GREEN.getInt()), 
+                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(1, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.RED.getInt()),
+                new GameDice(4, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()) },
+            },
+        };
+    }
+    
+    @DataProvider(name = "IncorrectPairColorPairNumber")
+    public Object[][] createIncorrectPairColorPairNumberCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(2, DiceTypes.Color.RED.getInt()),
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()) },
+            },
+        };
+    }
+
+    @Test(dataProvider = "CorrectPairColorPairNumber")
+    void testCorrectPairColorPairNumberCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairColorPairNumber(combination), true);
+    }
+    
+    @Test(dataProvider = "IncorrectPairColorPairNumber")
+    void testIncorrectPairColorPairNumberCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairColorPairNumber(combination), false);
+    }
 }
