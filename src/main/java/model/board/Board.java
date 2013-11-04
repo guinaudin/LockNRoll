@@ -43,4 +43,8 @@ public class Board {
     public Dice[][] getDiceBoard() {
         return diceBoard;
     }
+    
+    public void setDiceBoard(Dice[][] diceBoard) {
+        this.diceBoard = diceBoard;
+    }
 }

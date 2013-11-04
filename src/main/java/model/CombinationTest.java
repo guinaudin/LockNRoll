@@ -77,6 +77,58 @@ public class CombinationTest {
         return pairNumber1[1] != null && pairNumber2[1] != null;
     }
     
+    public boolean testPairColor(Dice[] combination) {
+        int i = 0;
+        int colorBis = 0;
+        int numColor = 0;
+        int numColorBis = 0;
+        
+        color = combination[i].getColor();
+        numColor++;
+        
+        do {
+            i++;
+            if(color == combination[i].getColor())
+                numColor++;
+            else if(color != combination[i].getColor() && colorBis == 0) {
+                colorBis = combination[i].getColor();
+                numColorBis++;
+            }
+            else if(colorBis == combination[i].getColor())
+                numColorBis++;
+            else
+                i = 4;
+        }while(i < 3);
+
+        return numColor == 2 && numColorBis == 2;
+    }
+    
+    public boolean testPairNumber(Dice[] combination) {
+        int i = 0;
+        int valueBis = 0;
+        int numValue = 0;
+        int numValueBis = 0;
+        
+        value = combination[i].getValue();
+        numValue++;
+        
+        do {
+            i++;
+            if(value == combination[i].getValue())
+                numValue++;
+            else if(value != combination[i].getValue() && valueBis == 0) {
+                valueBis = combination[i].getValue();
+                numValueBis++;
+            }
+            else if(valueBis == combination[i].getValue())
+                numValueBis++;
+            else
+                i = 4;
+        }while(i < 3);
+
+        return numValue == 2 && numValueBis == 2;
+    }
+    
     public boolean testPairColorPairNumber(Dice[] combination) {
         int i = 0;
         int colorBis = 0;
@@ -97,27 +149,6 @@ public class CombinationTest {
         
         do {
             i++;
-            /*if(color == combination[i].getColor() && value != combination[i].getValue() && pairNumber1[1] == null) {
-                valueBis = combination[i].getValue();
-                pairNumber1[1] = combination[i];
-            }
-            else if(color != combination[i].getColor() && valueBis == 0 && value != combination[i].getValue()) {
-                colorBis = combination[i].getColor();
-                valueBis = combination[i].getValue();
-                pairNumber2[0] = combination[i];
-            }
-            else if(color != combination[i].getColor() && value == combination[i].getValue()) {
-                colorBis = combination[i].getColor();
-                pairNumber2[0] = combination[i];
-            }
-            else if(color != combination[i].getColor() && valueBis == combination[i].getValue()) {
-                colorBis = combination[i].getColor();
-                pairNumber2[0] = combination[i];
-            }
-            else if(colorBis == combination[i].getColor() && (value == combination[i].getValue()))
-                pairNumber2[1] = combination[i];
-            else
-                i = 3;*/
             
             if(colorBis == 0 && color != combination[i].getColor()) {
                 colorBis = combination[i].getColor();

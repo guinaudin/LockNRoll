@@ -9,11 +9,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class CombinationTestTest {
+public class CombinationTestNGTest {
     private CombinationTest CT;
     private Dice[] combination;
     
-    public CombinationTestTest() {
+    public CombinationTestNGTest() {
     }
 
     @BeforeClass
@@ -340,5 +340,109 @@ public class CombinationTestTest {
     @Test(dataProvider = "IncorrectPairColorPairNumber")
     void testIncorrectPairColorPairNumberCombination(Dice[] combination) {
         Assert.assertEquals(CT.testPairColorPairNumber(combination), false);
+    }
+    
+    /**################################################################
+    #                            PairColor                            #
+    ################################################################**/
+    
+    @DataProvider(name = "CorrectPairColor")
+    public Object[][] createCorrectPairColorCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.BLUE.getInt()), 
+                new GameDice(3, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.GREEN.getInt()), 
+                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(1, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.RED.getInt()),
+                new GameDice(4, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()) },
+            },
+        };
+    }
+    
+    @DataProvider(name = "IncorrectPairColor")
+    public Object[][] createIncorrectPairColorCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(2, DiceTypes.Color.RED.getInt()),
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()) },
+            },
+        };
+    }
+
+    @Test(dataProvider = "CorrectPairColor")
+    void testCorrectPairColorCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairColor(combination), true);
+    }
+    
+    @Test(dataProvider = "IncorrectPairColor")
+    void testIncorrectPairColorCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairColor(combination), false);
+    }
+    
+    /**################################################################
+    #                            PairNumber                            #
+    ################################################################**/
+    
+    @DataProvider(name = "CorrectPairNumber")
+    public Object[][] createCorrectPairNumberCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.BLUE.getInt()), 
+                new GameDice(3, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.GREEN.getInt()), 
+                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(1, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.RED.getInt()),
+                new GameDice(4, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()) },
+            },
+        };
+    }
+    
+    @DataProvider(name = "IncorrectPairNumber")
+    public Object[][] createIncorrectPairNumberCombination() {
+        return new Object[][] {
+            { new Dice[] {
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(2, DiceTypes.Color.RED.getInt()),
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(4, DiceTypes.Color.BLUE.getInt()) },
+            },
+                
+            { new Dice[] {
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.RED.getInt()), 
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()) },
+            },
+        };
+    }
+
+    @Test(dataProvider = "CorrectPairNumber")
+    void testCorrectPairNumberCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairNumber(combination), true);
+    }
+    
+    @Test(dataProvider = "IncorrectPairNumber")
+    void testIncorrectPairNumberCombination(Dice[] combination) {
+        Assert.assertEquals(CT.testPairNumber(combination), false);
     }
 }

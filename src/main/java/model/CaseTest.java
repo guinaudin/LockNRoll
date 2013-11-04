@@ -6,15 +6,40 @@ import model.dice.Dice;
 public class CaseTest {
     private Board board;
     private Dice[][] diceBoard;
+    private Dice[] combination;
+    private CombinationTest combinationTest;
     
     public CaseTest(Board board) {
         this.board = board;
+        combinationTest = new CombinationTest();
+        combination = new Dice[Constant.SIZE];
         
-        //Besoin d'init le board
+        for(int i = 0; i < Constant.SIZE; i++)
+            combination[i] = null;
+    }
+    
+    public void findCombination() {
+        int j = 0;
+        boolean result;
+        
+        diceBoard = board.getDiceBoard();
+        
+        //Test Lines
         for(int i = 0; i < Constant.SIZE; i++) {
-            for(int j = 0; j < Constant.SIZE; j++) {
-                diceBoard[i][j] = null;
-            }
+            j = 0;
+            do {
+                if(diceBoard[i][j].getLocked() == true) {
+                    combination[j] = diceBoard[i][j];
+                }
+                else
+                    j = 4;
+                if(combination.length == 4) {
+                    //appel des combination Test
+                    // Launch tests
+                    result = combinationTest.testEachColor(combination);
+                }
+                j++;
+            }while(j < 3);
         }
     }
 }
