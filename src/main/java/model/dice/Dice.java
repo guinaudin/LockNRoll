@@ -27,4 +27,16 @@ public abstract class Dice {
     public int getValue() {
         return value;
     }
+    
+    public void setColor(int color) {
+        this.color = color;
+    }
+    
+    public void setValue(int value) {
+        this.value = value;
+    }
+    
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 }
