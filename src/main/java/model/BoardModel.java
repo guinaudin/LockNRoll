@@ -1,12 +1,15 @@
 package model;
 
 import model.board.Board;
+import model.player.Player;
 
 public class BoardModel {
     private Board board;
+    private Player player;
     //private EventListenerList listeners;
 
     public BoardModel() {
+        player = new Player();
         board = new Board();
         board.rollDices();
     }
@@ -18,7 +21,7 @@ public class BoardModel {
     }
     
     public void makeTurn() {
-        //caseTest
+        //caseTest(board, player)
         
         //victory test
         //rolldices

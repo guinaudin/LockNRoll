@@ -83,7 +83,7 @@ public class CombinationTestNGTest {
     }
     
     /**################################################################
-    #                       SameColorEAchNumber                       #
+    #                       SameColorEachNumber                       #
     ################################################################**/
     
     @DataProvider(name = "CorrectSameColorEachNumber")
@@ -108,7 +108,7 @@ public class CombinationTestNGTest {
     @DataProvider(name = "IncorrectSameColorEachNumber")
     public Object[][] createIncorrectSameColorEachNumberCombination() {
         return new Object[][] {
-            { new Dice[] {
+           { new Dice[] {
                 new GameDice(1, DiceTypes.Color.BLUE.getInt()), 
                 new GameDice(2, DiceTypes.Color.BLUE.getInt()),
                 new GameDice(3, DiceTypes.Color.BLUE.getInt()), 
@@ -116,10 +116,10 @@ public class CombinationTestNGTest {
             },
                 
             { new Dice[] {
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()), 
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt()), 
                 new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
                 new GameDice(4, DiceTypes.Color.YELLOW.getInt()), 
-                new GameDice(3, DiceTypes.Color.BLUE.getInt()) },
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()) },
             },
         };
     }   
@@ -161,8 +161,8 @@ public class CombinationTestNGTest {
     public Object[][] createIncorrectEachColorSameNumberCombination() {
         return new Object[][] {
             { new Dice[] {
-                new GameDice(2, DiceTypes.Color.RED.getInt()), 
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.BLUE.getInt()), 
+                new GameDice(2, DiceTypes.Color.RED.getInt()),
                 new GameDice(2, DiceTypes.Color.YELLOW.getInt()), 
                 new GameDice(2, DiceTypes.Color.BLUE.getInt()) },
             },

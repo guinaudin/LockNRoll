@@ -14,6 +14,7 @@ public abstract class Dice {
     public Dice(int value,int color) {
         this.value = value;
         this.color = color;
+        locked = true;
     }
     
     public boolean getLocked() {
