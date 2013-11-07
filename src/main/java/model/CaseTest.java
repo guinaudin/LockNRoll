@@ -47,8 +47,8 @@ public class CaseTest {
         //Test corners
         clearCorners = this.findCornerCombinations();
         //Test cubes
-        
-        
+        clearCubes = this.findCubeCombinations();
+
         //Clear board
         this.clearBoard();
         //reset UI
@@ -57,7 +57,7 @@ public class CaseTest {
     private void clearBoard() {
         for(int i = 0; i < Constant.SIZE; i++) {
             for(int j = 0; j < Constant.SIZE; j++) {
-                if(this.clearLines[i][j] || this.clearColumns[i][j] || this.clearDiagonals[i][j] || this.clearCorners[i][j])
+                if(this.clearLines[i][j] || this.clearColumns[i][j] || this.clearDiagonals[i][j] || this.clearCorners[i][j] || this.clearCubes[i][j])
                     diceBoard[i][j] = new GameDice();
             }
         }
@@ -237,6 +237,48 @@ public class CaseTest {
         }
         
         return clearCornerDiceBoard;
+    }
+    
+    public Boolean[][] findCubeCombinations() {
+        boolean clear = false;
+        Boolean[][] clearCubeDiceBoard = new Boolean[Constant.SIZE][Constant.SIZE];
+            
+        for(int k = 0; k < Constant.SIZE; k++)
+            for(int l = 0; l < Constant.SIZE; l++)
+                clearCubeDiceBoard[k][l] = false;
+           
+        for(int i = 0; i < Constant.SIZE - 1; i++) {
+            for(int j = 0; j < Constant.SIZE - 1; j++) {
+                for(int k = 0; k < Constant.SIZE; k++)
+                    combination[k] = null;
+                
+                if(diceBoard[i][j].getLocked() && diceBoard[i+1][j].getLocked() && diceBoard[i][j+1].getLocked() && diceBoard[i+1][j+1].getLocked()) {
+                    combination[0] = diceBoard[i][j];
+                    combination[1] = diceBoard[i+1][j];
+                    combination[2] = diceBoard[i][j+1];
+                    combination[3] = diceBoard[i+1][j+1];
+                }
+                
+                if(combination[Constant.SIZE - 1] != null) {
+                    clear = this.calculateScore(combination);
+                
+                    if(clear) {
+                        //Save the combination we have to clear
+                        for(int k = 0; k < Constant.SIZE - 1; k++) {
+                            for(int l = 0; l < Constant.SIZE - 1; l++) {
+                                if(k == i && l == j) {
+                                    clearCubeDiceBoard[k][l] = true;
+                                    clearCubeDiceBoard[k+1][l] = true;
+                                    clearCubeDiceBoard[k][l+1] = true;
+                                    clearCubeDiceBoard[k+1][l+1] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return clearCubeDiceBoard;
     }
     
     private boolean calculateScore(Dice[] combination) {
