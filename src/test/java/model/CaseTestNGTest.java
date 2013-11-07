@@ -211,6 +211,125 @@ public class CaseTestNGTest {
     }
     
     /**################################################################
+    #                       ClearALlCubeCombination                   #
+    ################################################################**/
+    
+    @DataProvider(name = "ClearAllCubeCombinations")
+    public Object[][] createClearAllCubeCombinations() {
+        return new Object[][] {
+        { 
+            new GameDice[][] {
+                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt())},
+            }
+        },   
+        };
+    }   
+    
+    @Test(dataProvider = "ClearAllCubeCombinations")
+    void testClearAllCubeCombinations(Dice[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
+        caseTest = new CaseTest(board, new Player());
+        
+        System.out.println("@Test - Clear : All Cubes\nO = Free place\nX = Dice\n");
+        this.printClearedBoard(caseTest.findCubeCombinations());
+        System.out.println();
+    }
+    
+    /**################################################################
+    #                       ClearMiddleCubeCombination                   #
+    ################################################################**/
+    
+    @DataProvider(name = "ClearMiddleCubeCombinations")
+    public Object[][] createClearMiddleCubeCombinations() {
+        return new Object[][] {
+        { 
+            new GameDice[][] {
+                {new GameDice(3, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+            }
+        },   
+        };
+    } 
+    
+    /**################################################################
+    #           ClearMiddleBottomRightUpperLeftCubeCombination        #
+    ################################################################**/
+    
+    @DataProvider(name = "ClearMiddleBottomRightUpperLeftCubeCombinations")
+    public Object[][] createClearMiddleBottomRightUpperLeftCubeCombinations() {
+        return new Object[][] {
+        { 
+            new GameDice[][] {
+                {new GameDice(3, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(3, DiceTypes.Color.RED.getInt()),
+                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(3, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(1, DiceTypes.Color.RED.getInt())},
+            }
+        },   
+        };
+    }
+    
+    @Test(dataProvider = "ClearMiddleBottomRightUpperLeftCubeCombinations")
+    void testClearMiddleBottomRightUpperLeftCubeCombinations(Dice[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
+        caseTest = new CaseTest(board, new Player());
+        
+        System.out.println("@Test - Clear : Middle, Bottom Right, Upper Left Cubes\nO = Free place\nX = Dice\n");
+        this.printClearedBoard(caseTest.findCubeCombinations());
+        System.out.println();
+    }
+    
+    /**################################################################
     #              ClearSecondLineSecondColumnCombination             #
     ################################################################**/
     
