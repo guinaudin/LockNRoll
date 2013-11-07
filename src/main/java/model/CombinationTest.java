@@ -218,37 +218,38 @@ public class CombinationTest {
     }
     
     public boolean testEachNumber(Dice[] combination) {
-        int i = 0;
+        int i = -1;
         int j;
         int cpt;
         
-        do{   
+        do{
+            i++;
             /**reinitialisation des variables de la boucle interne*/
             cpt = 0;
             j = 0;
             
             /**boucle tant que on n'a pas verifié l'ensemble des numeros precedents*/
             while(i > j)
-            {
+            {             
                 /**si le numero est different du jieme precedent numero*/
                 if(combination[i].getValue() != combination[j].getValue())
                     cpt++;
                 /**on verifie le numero suivant*/
                 j++;
-            }
-            
-            i++;
-        }while(cpt == i || i < 4);
+            } 
+            //System.out.println("i : " + i + " cpt : " + cpt);
+        }while(cpt == i && i < 3);
         
-        return cpt == 3;
+        return cpt == i && i == 3;
     }
     
     public boolean testEachColor(Dice[] combination) {
-        int i = 0;
+        int i = -1;
         int j;
         int cpt;
         
         do{
+            i++;
             /**reinitialisation des variables de la boucle interne*/
             cpt = 0;
             j = 0;
@@ -261,11 +262,10 @@ public class CombinationTest {
                     cpt++;
                 /**on verifie le numero suivant*/
                 j++;
-            }
-
-            i++;
-        }while(cpt == i || i < 4);
+            } 
+            //System.out.println("i : " + i + " cpt : " + cpt);
+        }while(cpt == i && i < 3);
         
-        return cpt == 3;
+        return cpt == i && i == 3;
     }
 }
