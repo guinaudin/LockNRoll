@@ -1,22 +1,22 @@
 package view;
 
-import controller.BoardController;
-import controller.BoardView;
+import controller.AbstractControler;
 import model.board.Board;
-import model.board.BoardChangedEvent;
-import model.BoardModel;
+import model.Game;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
+import observer.Observer;
 
 /**classe qui met en place la page d'acceuil*/
-public class JFrameBoard extends BoardView implements ActionListener
+public class BoardView extends JFrame implements Observer, ActionListener
 {  
     //declaration d'un objet Desktop et d'un url
-    private BoardModel boardModel;
+    private Game boardModel;
     private Board board;
     private Desktop desktop = null;
     private java.net.URI url;
@@ -29,34 +29,34 @@ public class JFrameBoard extends BoardView implements ActionListener
     private JMenu miscellaneousMenu;
     private JMenuItem websiteMenuItem;
     private JMenuItem rulesMenuItem;
-    private JFrame frame;
+    private AbstractControler controler;
   
     /**constructeur*/
-    public JFrameBoard(BoardController controller, Board board) 
+    public BoardView(AbstractControler controler) 
     {
         //on appel le constructeur mere et on set le titre de la fenetre
-        super(controller);
-        this.board = board;
+        super();
+        this.controler = controler;
         //On initialise notre fen�tre
         build();
+        this.setVisible(true);
     }
     
     /**methode initialisant la fenetre*/
     private void build()
     {
-        frame = new JFrame();
         //On donne une taille � notre fen�tre
-        frame.setSize(515,560);
+        setSize(515,560);
         //On centre la fen�tre sur l'�cran
-        frame.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         //On interdit la redimensionnement de la fen�tre
-        frame.setResizable(false); 
+        setResizable(false); 
         //On dit � l'application de se fermer lors du clic sur la croix
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //creation de la menuBar
         JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
+        setJMenuBar(menuBar);
         
         //creation de la premiere icone de la menuBar
         JMenu gameMenu = new JMenu("Game");
@@ -113,23 +113,9 @@ public class JFrameBoard extends BoardView implements ActionListener
         //on ajoute une image de fond dans la JFrame
         
         //JLabel imageMainView = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("ressources/images/LockNRoll.jpg"))));
-        JLabel imageMainView = new JLabel(new ImageIcon("C:/Users/Guillaume/Documents/NetBeansProjects/LockNRoll/src/main/ressources/images/LockNRoll.jpg"));
-        frame.getContentPane().add(imageMainView);
+        JLabel imageMainView = new JLabel(new ImageIcon("/Users/guillaumenaudin/Documents/NetBeans Project/LockNRoll/src/main/resources/images/LockNRoll.jpg"));
+        getContentPane().add(imageMainView);
     }
-    
-    @Override
-    public void close() {
-        frame.dispose();
-    }
-
-    @Override
-    public void display() {
-        frame.setVisible(true);
-    }
-    
-    /*public void actionPerformed(ActionEvent arg0) {
-            getController().notifyVolumeChanged(Integer.parseInt(field.getValue().toString()));
-    }*/
     
      /**methode realisant les actions lorsqu'il y a un evenement*/
     @Override
@@ -144,7 +130,7 @@ public class JFrameBoard extends BoardView implements ActionListener
             //Mise en place de l'ui avec le plateau de jeu
             
             //creer le board
-            boardModel = new BoardModel();
+            boardModel = new Game();
             
             //lancer les 4 dés aléatoirement
         }
@@ -179,7 +165,7 @@ public class JFrameBoard extends BoardView implements ActionListener
                 if (Desktop.isDesktopSupported())     
                 {
                     //on ouvre le pdf sur le bureau
-                    Desktop.getDesktop().open(new File(getClass().getClassLoader().getResource("Ressources/LockNRoll.pdf").getPath()));
+                    Desktop.getDesktop().open(new File(getClass().getClassLoader().getResource("Resources/LockNRoll.pdf").getPath()));
                 }
             } 
             catch (IOException ex) 
@@ -190,46 +176,14 @@ public class JFrameBoard extends BoardView implements ActionListener
         //si l'utilisateur clic sur "quitter"
         else if(source == quitMenuItem)
         {
-            //on coupe l'extrait musical
-            //SoP.getAudio().close();
             //on ferme la fenetre
-            this.close();
+            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             //on quitte le programme
-            System.exit(0);
+            //System.exit(0);
         }
-        /*else if(source==menuItem6)
-        {
-            SoP.getAudio().play();
-        }
-        else if(source==menuItem7)
-        {
-            SoP.getAudio().close();
-        }
-        else if((source==menuItem8)&&(SoP.isVisible()==false))
-        {
-            SoP=new SoundPage(SoP.getAudio());
-            SoP.setVisible(true);
-        }
-        else if((source==menuItem9)&&(IdP.getDemarrer()==1)&&(C.isVisible()==false))
-        {
-            C.setVisible(true);
-        }
-        else if((source==menuItem10)&&(IdP.getDemarrer()==1)&&(fenCourbe.isVisible()==false))
-        {
-            fenCourbe.setVisible(true);
-        }   
-        else if((source==menuItem11)&&(IdP.getDemarrer()==1)&&(fenSFOR.isVisible()==false))
-        {
-            fenSFOR.setVisible(true);
-        }
-        else if((source==menuItem12)&&(IdP.getDemarrer()==1)&&(fenCam.isVisible()==false))
-        {
-            fenCam.setVisible(true);
-        }*/
     }
 
-    @Override
-    public void boardChanged(BoardChangedEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void update(Board board) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

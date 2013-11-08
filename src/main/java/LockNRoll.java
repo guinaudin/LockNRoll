@@ -1,6 +1,9 @@
-import controller.BoardController;
-import model.BoardModel;
+import controller.AbstractControler;
+import controller.BoardControler;
 import javax.swing.SwingUtilities;
+import model.AbstractModel;
+import model.Game;
+import view.BoardView;
 
 public class LockNRoll {
     public static void main(String[] args) {  
@@ -8,9 +11,14 @@ public class LockNRoll {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {   
-                BoardModel model = new BoardModel();
-                BoardController controller = new BoardController(model);
-                controller.displayViews();
+                //Instanciation de notre modèle
+                AbstractModel abstractModel = new Game();
+                //Création du contrôleur
+                AbstractControler controler = new BoardControler(abstractModel);
+                //Création de notre fenêtre avec le contrôleur en paramètre
+                BoardView boardView = new BoardView(controler);
+                //Ajout de la fenêtre comme observer de notre modèle
+                abstractModel.addObserver(boardView);
             }
         });
     }

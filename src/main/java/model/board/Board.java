@@ -47,4 +47,8 @@ public class Board {
     public void setDiceBoard(Dice[][] diceBoard) {
         this.diceBoard = diceBoard;
     }
+    
+    public void setDice(Dice dice, int posX, int posY) {
+        diceBoard[posX][posY] = dice;
+    }
 }
