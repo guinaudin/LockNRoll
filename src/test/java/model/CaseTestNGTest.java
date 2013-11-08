@@ -286,6 +286,16 @@ public class CaseTestNGTest {
         };
     } 
     
+    @Test(dataProvider = "ClearMiddleCubeCombinations")
+    void testClearMiddleCubeCombinations(Dice[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
+        caseTest = new CaseTest(board, new Player());
+        
+        System.out.println("@Test - Clear : Middle Cube\nO = Free place\nX = Dice\n");
+        this.printClearedBoard(caseTest.findCubeCombinations());
+        System.out.println();
+    }
+    
     /**################################################################
     #           ClearMiddleBottomRightUpperLeftCubeCombination        #
     ################################################################**/
