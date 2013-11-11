@@ -3,5 +3,6 @@ package observer;
 import model.board.Board;
 
 public interface Observer {
-    public void update(Board board);
+    public void updateBoardDice(Board board);
+    public void updateRolledDice(Board board);
 }

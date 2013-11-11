@@ -1,6 +1,6 @@
 package model.dice;
 
-public abstract class Dice {
+public class Dice {
     protected int value;
     protected int color;
     private boolean locked;

@@ -16,23 +16,19 @@ public class Board {
 
         //Besoin d'init le board
         for(int i = 0; i < Constant.SIZE; i++) {
-            rolledDice[i] = null;
+            rolledDice[i] = new GameDice(0, 0);
             for(int j = 0; j < Constant.SIZE; j++) {
-                diceBoard[i][j] = null;
+                diceBoard[i][j] = new Dice(0, 0);
             }
         }
     }
     
-    public void rollDices() {
-        if(unlockedPlaces > 4) {
-            for(int i = 0; i < Constant.SIZE; i++) {
-                rolledDice[i] = new GameDice();
-            }
-        }
-        else {
-            for(int i = 0; i < unlockedPlaces; i++) {
+    public void rollDice() {
+        for(int i = 0; i < Constant.SIZE; i++) {
+            if(i < unlockedPlaces)
                 rolledDice[i] = new GameDice((int)Math.round(Math.random() * 3 + 1),(int)Math.round(Math.random() * 3 + 1));
-            }
+            else 
+                rolledDice[i] = new GameDice(0, 0);
         }
     }
     
@@ -42,6 +38,10 @@ public class Board {
     
     public Dice[][] getDiceBoard() {
         return diceBoard;
+    }
+    
+    public GameDice[] getRolledDice() {
+        return rolledDice;
     }
     
     public void setDiceBoard(Dice[][] diceBoard) {
