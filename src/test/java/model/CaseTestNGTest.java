@@ -426,6 +426,50 @@ public class CaseTestNGTest {
         this.printBoard();
         System.out.println();
     }
+    
+    /**################################################################
+    #       ClearRightMiddleCubeFirstDiagoalLastLineCombination       #
+    ################################################################**/
+    
+    @DataProvider(name = "ClearRightMiddleCubeFirstDiagoalLastLineCombinations")
+    public Object[][] createClearRightMiddleCubeFirstDiagoalLastLineCombinations() {
+        return new Object[][] {
+        { 
+            new GameDice[][] {
+                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+
+                {new GameDice(3, DiceTypes.Color.RED.getInt()),
+                new GameDice(3, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+
+                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(4, DiceTypes.Color.GREEN.getInt()),
+                new GameDice(4, DiceTypes.Color.RED.getInt())},
+
+                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
+                new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
+                new GameDice(2, DiceTypes.Color.RED.getInt()),
+                new GameDice(2, DiceTypes.Color.GREEN.getInt())},
+            }
+        },   
+        };
+    }   
+    
+    @Test(dataProvider = "ClearRightMiddleCubeFirstDiagoalLastLineCombinations")
+    void testClearRightMiddleCubeFirstDiagoalLastLineCombinations(Dice[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
+        caseTest = new CaseTest(board, new Player());
+        
+        System.out.println("@Test - Clear : Middle Right Cube, First Diagoal, Last Line\nO = Free place\nX = Dice\n");
+        caseTest.findCombinations();
+        this.printBoard();
+        System.out.println();
+    }
 
     private void printBoard() {
         diceBoard = board.getDiceBoard();

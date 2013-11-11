@@ -3,7 +3,7 @@ import controller.BoardControler;
 import javax.swing.SwingUtilities;
 import model.AbstractModel;
 import model.Game;
-import view.BoardView;
+import view.MainView;
 
 public class LockNRoll {
     public static void main(String[] args) {  
@@ -16,7 +16,7 @@ public class LockNRoll {
                 //Création du contrôleur
                 AbstractControler controler = new BoardControler(abstractModel);
                 //Création de notre fenêtre avec le contrôleur en paramètre
-                BoardView boardView = new BoardView(controler);
+                MainView boardView = new MainView(controler);
                 //Ajout de la fenêtre comme observer de notre modèle
                 abstractModel.addObserver(boardView);
             }
