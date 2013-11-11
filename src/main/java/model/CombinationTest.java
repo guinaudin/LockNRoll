@@ -17,10 +17,7 @@ public class CombinationTest {
         color = combination[i].getColor();
         value = combination[i].getValue();
         
-        do {
-            //System.out.print("color(i) = " + color + " (color(i+1) = " + combination[i+1].getColor());
-            //System.out.println(" value(i) = " + value + " (value(i+1) = " + combination[i+1].getValue() + "\n");
-            
+        do {            
             if(color == combination[i+1].getColor() && value == combination[i+1].getValue())
                 i++;
             else
@@ -145,7 +142,6 @@ public class CombinationTest {
         value = combination[i].getValue();
         
         pairNumber1[0] = combination[i];
-        //System.out.println("pairNumber1[0] " + value + " " + color);
         
         do {
             i++;
@@ -158,7 +154,6 @@ public class CombinationTest {
                 if(value != combination[i].getValue() && pairNumber1[1] == null) { 
                     valueBis = combination[i].getValue();
                     pairNumber1[1] = combination[i];
-                    //System.out.println("pairNumber1[1] " + valueBis + " " + color);
                 }
                 else
                     i = 3;
@@ -166,16 +161,13 @@ public class CombinationTest {
             else if(colorBis == combination[i].getColor()) {
                 if(value == combination[i].getValue()) {
                     pairNumber2[0] = combination[i];
-                    //System.out.println("pairNumber2[0] " + value + " " + colorBis);
                 }
                 else if(valueBis == 0) {
                     valueBis = combination[i].getValue();
                     pairNumber2[1] = combination[i];
-                    //System.out.println("pairNumber2[1] " + valueBis + " " + colorBis);
                 }
                 else if(valueBis == combination[i].getValue()) {
                     pairNumber2[1] = combination[i];
-                    //System.out.println("pairNumber2[1] " + valueBis + " " + colorBis);
                 }
                 else
                     i = 3;
@@ -263,7 +255,6 @@ public class CombinationTest {
                 /**on verifie le numero suivant*/
                 j++;
             } 
-            //System.out.println("i : " + i + " cpt : " + cpt);
         }while(cpt == i && i < 3);
         
         return cpt == i && i == 3;
