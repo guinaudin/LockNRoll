@@ -24,7 +24,9 @@ public abstract class AbstractModel implements Observable {
     }
 
     public void notifyObserver(Board board) {
-    for(Observer obs : listObserver)
-        obs.update(board);
+        for(Observer obs : listObserver) {
+             obs.updateBoardDice(board);
+             obs.updateRolledDice(board);
+        }
     }
 }

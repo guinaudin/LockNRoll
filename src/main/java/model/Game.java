@@ -11,7 +11,7 @@ public class Game extends AbstractModel{
     public Game() {
         player = new Player();
         board = new Board();
-        board.rollDices();
+        board.rollDice();
     }
     
     public Game(Board board) {
@@ -22,7 +22,7 @@ public class Game extends AbstractModel{
     public void startNewGame() {
         player = new Player();
         board = new Board();
-        board.rollDices();
+        board.rollDice();
         
         notifyObserver(board);
     }
@@ -32,6 +32,7 @@ public class Game extends AbstractModel{
         
         //victory test
         //rolldices
+        board.rollDice();
         
         notifyObserver(board);
     }
