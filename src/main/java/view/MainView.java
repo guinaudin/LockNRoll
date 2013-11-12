@@ -6,6 +6,7 @@ import java.awt.Color;
 import model.board.Board;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -44,6 +45,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private JPanel startPagePanel;
     private JButton[][] jButtonDiceBoard;
     private JButton[] jButtonRolledDice;
+    private JButton rollButton;
     private JLabel imageMainView;
     private Die selectedRolledDie;
     private Die selectedBoardDie;
@@ -67,15 +69,15 @@ public class MainView extends JFrame implements Observer, ActionListener
     
     private void buildFrame() {
         //On donne une taille � notre fen�tre
-        this.setSize(600,450);
+        this.setSize(340,360);
         //On centre la fen�tre sur l'�cran
         this.setLocationRelativeTo(null);
         //On interdit la redimensionnement de la fen�tre
-        this.setResizable(true); 
+        this.setResizable(false); 
         //On dit � l'application de se fermer lors du clic sur la croix
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        startPagePanel = new JPanel();
+        startPagePanel = new JPanel(new BorderLayout());
         imageMainView = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("images/LockNRoll.jpg")));
         startPagePanel.add(imageMainView);
         this.setContentPane(startPagePanel);
@@ -148,13 +150,26 @@ public class MainView extends JFrame implements Observer, ActionListener
     
     /**methode privée ajoutant les boutants gerant des evenements*/
     private JPanel buildBoardPanel() {
+        JPanel boardFlowPanel = new JPanel(new FlowLayout());
+        boardFlowPanel.setBackground(Color.WHITE); 
         boardPanel = new JPanel();
+        boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
+        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        boardPanel.setBackground(Color.WHITE); 
+        
         jButtonDiceBoard = new JButton[4][4];
         jButtonRolledDice = new JButton[4];
+        
+        JPanel dicePanel = new JPanel();
+        dicePanel.setLayout(new BoxLayout(dicePanel, BoxLayout.X_AXIS));
+        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        dicePanel.setBackground(Color.WHITE); 
+        
         //creation d'un objet JPanel
         diceBoardPanel = new JPanel();
         //layout par defaut
-        diceBoardPanel.setLayout(new GridLayout(5, 4, 5, 5));
+        diceBoardPanel.setLayout(new GridLayout(4, 4, 5, 5));
+        diceBoardPanel.setBackground(Color.WHITE); 
                         
         //creation des JButtons installer sur le panel en les rendant evenementiel
         for(int i = 0; i < 4; i++) {
@@ -174,6 +189,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         rolledDicePanel = new JPanel();
         //layout par defaut
         rolledDicePanel.setLayout(new GridLayout(4, 1, 5, 5));
+        rolledDicePanel.setBackground(Color.WHITE); 
         
         for(int i = 0; i < 4; i++) {
             jButtonRolledDice[i] = new JButton("");
@@ -186,38 +202,45 @@ public class MainView extends JFrame implements Observer, ActionListener
             rolledDicePanel.add(jButtonRolledDice[i]);
         }
         
-        /*JPanel topPanel = new JPanel();
+        dicePanel.add(rolledDicePanel);
+        dicePanel.add(Box.createHorizontalStrut(15));
+        dicePanel.add(diceBoardPanel);
+        
+        JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         topPanel.setBackground(Color.WHITE); 
         
-        JButton rollButton = new JButton("Roll");
+        rollButton = new JButton("Roll");
         rollButton.addActionListener(this);
         rollButton.setMaximumSize(new Dimension(50,50));
         rollButton.setMinimumSize(new Dimension(50,50));
         rollButton.setPreferredSize(new Dimension(50,50));
         
         topPanel.add(rollButton);
+        topPanel.add(Box.createHorizontalStrut(15));
         
         JPanel scorePanel = new JPanel();
-        scorePanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         scorePanel.setBackground(Color.WHITE); 
         
-        JLabel score = new JLabel("Score : " + 0);
+        JLabel score = new JLabel("                 Score : " + 0);
         scorePanel.add(score);
-        scorePanel.add(Box.createHorizontalStrut(10));
+        scorePanel.add(Box.createVerticalStrut(5));
         
         progressBarScore = new JProgressBar(0, 100);
         progressBarScore.setValue(0);
         progressBarScore.setStringPainted(true);
         scorePanel.add(progressBarScore);
-        topPanel.add(scorePanel);*/
         
-        //boardPanel.add(topPanel,BorderLayout.NORTH);
-        boardPanel.add(rolledDicePanel,BorderLayout.WEST);
-        boardPanel.add(diceBoardPanel,BorderLayout.CENTER);
+        topPanel.add(scorePanel);
         
-        return boardPanel;
+        boardPanel.add(Box.createVerticalStrut(10));
+        boardPanel.add(topPanel);
+        boardPanel.add(Box.createVerticalStrut(10));
+        boardPanel.add(dicePanel);
+        boardFlowPanel.add(boardPanel);
+        
+        return boardFlowPanel;
     }
     
      /**methode realisant les actions lorsqu'il y a un evenement*/
@@ -340,6 +363,9 @@ public class MainView extends JFrame implements Observer, ActionListener
             }  
             else if(e.getActionCommand().equals("button33")) {
                 this.selectOrMoveDie(3, 3);
+            }
+            else if((JButton)e.getSource() == rollButton) {
+                controler.makeTurn();
             }
         }
     }

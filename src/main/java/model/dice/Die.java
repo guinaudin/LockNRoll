@@ -4,18 +4,11 @@ public class Die {
     protected int value;
     protected int color;
     private boolean locked;
-
-    public Die() {
-        value = 0;
-        color = 0;
-        locked = false;
-        //selected = false;
-    }
     
     public Die(int value,int color, boolean locked) {
         this.value = value;
         this.color = color;
-        locked = true;
+        this.locked = locked;
     }
     
     public boolean getLocked() {
