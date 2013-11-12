@@ -1,20 +1,23 @@
 package model.dice;
 
-public class Dice {
+public class Die {
     protected int value;
     protected int color;
     private boolean locked;
+    //private boolean selected;
 
-    public Dice() {
+    public Die() {
         value = 0;
         color = 0;
         locked = false;
+        //selected = false;
     }
     
-    public Dice(int value,int color) {
+    public Die(int value,int color, boolean locked) {
         this.value = value;
         this.color = color;
         locked = true;
+        //selected = false;
     }
     
     public boolean getLocked() {
@@ -40,4 +43,12 @@ public class Dice {
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
+    
+    /*public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    public boolean getSelected() {
+        return selected;
+    }*/
 }

@@ -1,6 +1,6 @@
 package model.dice;
 
-public class DiceTypes {
+public class DieTypes {
     public enum Color { 
         YELLOW(1), GREEN(2), RED(3), BLUE(4);
 

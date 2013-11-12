@@ -1,8 +1,6 @@
 package model;
 
-import model.dice.Dice;
-import model.dice.GameDice;
-
+import model.dice.Die;
 public class CombinationTest {
     private int color;
     private int value;
@@ -11,7 +9,7 @@ public class CombinationTest {
 
     }
     
-    public boolean testSameColorSameNumber(Dice[] combination) {
+    public boolean testSameColorSameNumber(Die[] combination) {
         int i = 0;
         
         color = combination[i].getColor();
@@ -27,24 +25,24 @@ public class CombinationTest {
         return i == 3;
     }
     
-    public boolean testSameColorEachNumber(Dice[] combination) {
+    public boolean testSameColorEachNumber(Die[] combination) {
         return this.testSameColor(combination) && this.testEachNumber(combination);
     }
     
-    public boolean testEachColorSameNumber(Dice[] combination) {
+    public boolean testEachColorSameNumber(Die[] combination) {
         return this.testEachColor(combination) && this.testSameNumber(combination);
     }
     
-    public boolean testEachColorEachNumber(Dice[] combination) {
+    public boolean testEachColorEachNumber(Die[] combination) {
         return this.testEachColor(combination) && this.testEachNumber(combination);
     }
     
-    public boolean testTwoPair(Dice[] combination) {
+    public boolean testTwoPair(Die[] combination) {
         int i = 0;
         int colorBis = 0;
         int valueBis = 0;
-        Dice[] pairNumber1 = new GameDice[2]; 
-        Dice[] pairNumber2 = new GameDice[2];
+        Die[] pairNumber1 = new Die[2]; 
+        Die[] pairNumber2 = new Die[2];
         
         for(int j = 0; j < 2; j++) {
             pairNumber1[j] = null;
@@ -74,7 +72,7 @@ public class CombinationTest {
         return pairNumber1[1] != null && pairNumber2[1] != null;
     }
     
-    public boolean testPairColor(Dice[] combination) {
+    public boolean testPairColor(Die[] combination) {
         int i = 0;
         int colorBis = 0;
         int numColor = 0;
@@ -100,7 +98,7 @@ public class CombinationTest {
         return numColor == 2 && numColorBis == 2;
     }
     
-    public boolean testPairNumber(Dice[] combination) {
+    public boolean testPairNumber(Die[] combination) {
         int i = 0;
         int valueBis = 0;
         int numValue = 0;
@@ -126,12 +124,12 @@ public class CombinationTest {
         return numValue == 2 && numValueBis == 2;
     }
     
-    public boolean testPairColorPairNumber(Dice[] combination) {
+    public boolean testPairColorPairNumber(Die[] combination) {
         int i = 0;
         int colorBis = 0;
         int valueBis = 0;
-        Dice[] pairNumber1 = new GameDice[2]; 
-        Dice[] pairNumber2 = new GameDice[2];
+        Die[] pairNumber1 = new Die[2]; 
+        Die[] pairNumber2 = new Die[2];
         
         for(int j = 0; j < 2; j++) {
             pairNumber1[j] = null;
@@ -179,7 +177,7 @@ public class CombinationTest {
         return pairNumber1[1] != null && pairNumber2[1] != null;
     }
     
-    public boolean testSameColor(Dice[] combination) {
+    public boolean testSameColor(Die[] combination) {
         int i = 0;
         
         color = combination[i].getColor();
@@ -194,7 +192,7 @@ public class CombinationTest {
         return i == 3;
     }
     
-    public boolean testSameNumber(Dice[] combination) {
+    public boolean testSameNumber(Die[] combination) {
         int i = 0;
         
         value = combination[i].getValue();
@@ -209,7 +207,7 @@ public class CombinationTest {
         return i == 3;
     }
     
-    public boolean testEachNumber(Dice[] combination) {
+    public boolean testEachNumber(Die[] combination) {
         int i = -1;
         int j;
         int cpt;
@@ -235,7 +233,7 @@ public class CombinationTest {
         return cpt == i && i == 3;
     }
     
-    public boolean testEachColor(Dice[] combination) {
+    public boolean testEachColor(Die[] combination) {
         int i = -1;
         int j;
         int cpt;
