@@ -29,6 +29,15 @@ public class Board {
         }
     }
     
+    public void lockDice() {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+                if(!diceBoard[i][j].getLocked() && diceBoard[i][j].getColor() != 0)
+                    diceBoard[i][j].setLocked(true);
+            }
+        }
+    }
+    
     public int getUnlockedPlaces() {
         return unlockedPlaces;
     }

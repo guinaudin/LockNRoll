@@ -55,8 +55,10 @@ public class CaseTest {
     private void clearBoard() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                if(this.clearLines[i][j] || this.clearColumns[i][j] || this.clearDiagonals[i][j] || this.clearCorners[i][j] || this.clearCubes[i][j])
-                    diceBoard[i][j] = new Die();
+                if(this.clearLines[i][j] || this.clearColumns[i][j] || this.clearDiagonals[i][j] || this.clearCorners[i][j] || this.clearCubes[i][j]) {
+                    board.setBoardDie(new Die(0, 0, false), i, j);
+                    System.out.println("cleared " + i + ", " + j);
+                }
             }
         }
     }
@@ -291,18 +293,22 @@ public class CaseTest {
         
         //Combination cleared
         if(combinationTest.testSameColorSameNumber(combination)) {
+            System.out.println("bingo");
             player.setScore(400);
             clear = true;
         }
         else if(combinationTest.testSameColorEachNumber(combination)) {
+            System.out.println("bingo");
             player.setScore(200);
             clear = true;
         }
         else if(combinationTest.testEachColorSameNumber(combination)) {
+            System.out.println("bingo");
             player.setScore(200);
             clear = true;
         }
         else if(combinationTest.testEachColorEachNumber(combination)) {
+            System.out.println("bingo");
             player.setScore(100);
             clear = true;
         }

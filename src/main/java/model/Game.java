@@ -7,10 +7,12 @@ import model.player.Player;
 public class Game extends AbstractModel{
     private Board board;
     private Player player;
+    private CaseTest caseTest;
 
     public Game() {
         player = new Player();
         board = new Board();
+        caseTest = new CaseTest(board, player);
         board.rollDice();
     }
     
@@ -28,11 +30,24 @@ public class Game extends AbstractModel{
     }
     
     public void makeTurn() {
+        int cpt = 0;
+        int i = -1;
         //caseTest(board, player)
         
         //victory test
-        //rolldices
-        board.rollDice();
+        //rolldice
+        board.lockDice();
+        caseTest.findCombinations();
+        
+        do {
+            i++;
+            if(board.getRolledDie(i).getColor() == 0)
+               cpt++;   
+        }while(cpt<4 && board.getRolledDie(i).getColor() == 0);
+
+        if(cpt == 4) {
+            board.rollDice();
+        }
         
         notifyObserver(board);
     }
