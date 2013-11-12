@@ -1,34 +1,31 @@
 package model.board;
-
-import model.Constant;
-import model.dice.Dice;
-import model.dice.GameDice;
+import model.dice.Die;
 
 public class Board {
-    private GameDice[] rolledDice;
-    private Dice[][] diceBoard;
+    private Die[] rolledDice;
+    private Die[][] diceBoard;
     private int unlockedPlaces;
 
     public Board() {
-        unlockedPlaces = Constant.SIZE * Constant.SIZE;
-        diceBoard = new Dice[Constant.SIZE][Constant.SIZE];
-        rolledDice = new GameDice[Constant.SIZE];
+        unlockedPlaces = 4 * 4;
+        diceBoard = new Die[4][4];
+        rolledDice = new Die[4];
 
         //Besoin d'init le board
-        for(int i = 0; i < Constant.SIZE; i++) {
-            rolledDice[i] = new GameDice(0, 0);
-            for(int j = 0; j < Constant.SIZE; j++) {
-                diceBoard[i][j] = new Dice(0, 0);
+        for(int i = 0; i < 4; i++) {
+            rolledDice[i] = new Die(0, 0, false);
+            for(int j = 0; j < 4; j++) {
+                diceBoard[i][j] = new Die(0, 0, false);
             }
         }
     }
     
     public void rollDice() {
-        for(int i = 0; i < Constant.SIZE; i++) {
+        for(int i = 0; i < 4; i++) {
             if(i < unlockedPlaces)
-                rolledDice[i] = new GameDice((int)Math.round(Math.random() * 3 + 1),(int)Math.round(Math.random() * 3 + 1));
+                rolledDice[i] = new Die((int)Math.round(Math.random() * 3 + 1),(int)Math.round(Math.random() * 3 + 1), false);
             else 
-                rolledDice[i] = new GameDice(0, 0);
+                rolledDice[i] = new Die(0, 0, false);
         }
     }
     
@@ -36,19 +33,32 @@ public class Board {
         return unlockedPlaces;
     }
     
-    public Dice[][] getDiceBoard() {
+    public Die[][] getDiceBoard() {
         return diceBoard;
     }
     
-    public GameDice[] getRolledDice() {
+    public Die[] getRolledDice() {
         return rolledDice;
     }
     
-    public void setDiceBoard(Dice[][] diceBoard) {
+    public Die getRolledDie(int posX) {
+        return rolledDice[posX];
+    }
+    
+    public Die getBoardDie(int posX, int posY) {
+        return diceBoard[posX][posY];
+    }
+    
+    public void setDiceBoard(Die[][] diceBoard) {
         this.diceBoard = diceBoard;
     }
     
-    public void setDice(Dice dice, int posX, int posY) {
-        diceBoard[posX][posY] = dice;
+    public void setBoardDie(Die die, int posX, int posY) {
+        diceBoard[posX][posY] = die;
+        System.out.println(diceBoard[posX][posY].getColor() + " " + diceBoard[posX][posY].getValue());
+    }
+    
+    public void setRolledDie(Die die, int posX) {
+        rolledDice[posX] = die;
     }
 }

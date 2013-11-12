@@ -1,10 +1,8 @@
 package view;
 
-import controller.AbstractControler;
+import controler.AbstractControler;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import model.board.Board;
-import model.Game;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -18,17 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import model.Constant;
-import model.dice.Dice;
-import model.dice.DiceTypes;
-import model.dice.GameDice;
+import model.dice.Die;
+import model.dice.DieTypes;
 import observer.Observer;
 
 /**classe qui met en place la page d'acceuil*/
 public class MainView extends JFrame implements Observer, ActionListener
 {  
     //declaration d'un objet Desktop et d'un url
-    private Game boardModel;
     private Board board;
     private Desktop desktop = null;
     private java.net.URI url;
@@ -49,11 +44,19 @@ public class MainView extends JFrame implements Observer, ActionListener
     private JButton[][] jButtonDiceBoard;
     private JButton[] jButtonRolledDice;
     private JLabel imageMainView;
-  
+    private Die selectedRolledDie;
+    private Die selectedBoardDie;
+    private int selectedPosX;
+    private int selectedPosY;
+    
     /**constructeur*/
     public MainView(AbstractControler controler) {
         super("Lock N Roll");
         this.controler = controler;
+        selectedPosX = 4;
+        selectedPosY = 4;
+        selectedRolledDie = null;
+        selectedBoardDie = null;
         this.buildFrame();
         this.buildMenuBar();
         
@@ -75,7 +78,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         startPagePanel.add(imageMainView);
         this.setContentPane(startPagePanel);
     }
-    
+
     private void buildMenuBar() {
         //creation de la menuBar
         JMenuBar menuBar = new JMenuBar();
@@ -144,17 +147,18 @@ public class MainView extends JFrame implements Observer, ActionListener
     /**methode privée ajoutant les boutants gerant des evenements*/
     private JPanel buildBoardPanel() {
         boardPanel = new JPanel();
-        jButtonDiceBoard = new JButton[Constant.SIZE][Constant.SIZE];
-        jButtonRolledDice = new JButton[Constant.SIZE];
+        jButtonDiceBoard = new JButton[4][4];
+        jButtonRolledDice = new JButton[4];
         //creation d'un objet JPanel
         diceBoardPanel = new JPanel();
         //layout par defaut
         diceBoardPanel.setLayout(new GridLayout(5, 4, 5, 5));
                         
         //creation des JButtons installer sur le panel en les rendant evenementiel
-        for(int i = 0; i < Constant.SIZE; i++) {
-            for(int j = 0; j < Constant.SIZE; j++) {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
                 jButtonDiceBoard[i][j] = new JButton("");
+                jButtonDiceBoard[i][j].setActionCommand("button" + i + j);
                 jButtonDiceBoard[i][j].addActionListener(this);
                 jButtonDiceBoard[i][j].setMaximumSize(new Dimension(50,50));
                 jButtonDiceBoard[i][j].setMinimumSize(new Dimension(50,50));
@@ -169,8 +173,9 @@ public class MainView extends JFrame implements Observer, ActionListener
         //layout par defaut
         rolledDicePanel.setLayout(new GridLayout(4, 1, 5, 5));
         
-        for(int i = 0; i < Constant.SIZE; i++) {
+        for(int i = 0; i < 4; i++) {
             jButtonRolledDice[i] = new JButton("");
+            jButtonRolledDice[i].setActionCommand("button" + i);
             jButtonRolledDice[i].addActionListener(this);
             jButtonRolledDice[i].setMaximumSize(new Dimension(50,50));
             jButtonRolledDice[i].setMinimumSize(new Dimension(50,50));
@@ -179,7 +184,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             rolledDicePanel.add(jButtonRolledDice[i]);
         }
         
-        
         boardPanel.add(rolledDicePanel,BorderLayout.WEST);
         boardPanel.add(diceBoardPanel,BorderLayout.CENTER);
         //this.add(scorePanel,BorderLayout.NORTH);
@@ -187,78 +191,211 @@ public class MainView extends JFrame implements Observer, ActionListener
         return boardPanel;
     }
     
-    public void rollDice() {
-        
-    }
-    
      /**methode realisant les actions lorsqu'il y a un evenement*/
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        //on recupere la source du clic
-        Object source = (JMenuItem)(e.getSource());
+        Object source;
         
-        //si l'utilisateur clic sur "rules"
-        if(source == newGameMenuItem)
-        {
-            this.setNewContentPane(this.buildBoardPanel());
-            //Mise en place de l'ui avec le plateau de jeu
-            controler.startNewGame();
-        }
-        //si l'utilisateur clic sur "Website"
-        else if(source == websiteMenuItem)
-        {
-            //tant qu'il n'y a pas d'exception
-            try 
-            {
-                //creation de l'url � partir du lien internet
-                url = new java.net.URI("http://jayisgames.com/games/lock-n-roll/");
-                
-                //si le bureau permet le chargement du lien
-                if(Desktop.isDesktopSupported())
+        //on recupere la source du clic
+        if(e.getSource() instanceof JMenuItem) {
+            source = (JMenuItem)(e.getSource());
+            
+            if(source == newGameMenuItem) {
+                this.setNewContentPane(this.buildBoardPanel());
+                controler.startNewGame();
+            }
+            //si l'utilisateur clic sur "rules"
+            else if(source == websiteMenuItem) {
+                //tant qu'il n'y a pas d'exception
+                try {
+                    //creation de l'url � partir du lien internet
+                    url = new java.net.URI("http://jayisgames.com/games/lock-n-roll/");
+
+                    //si le bureau permet le chargement du lien
+                    if(Desktop.isDesktopSupported())
+                    {
+                        //on recupere le desktop
+                        desktop = Desktop.getDesktop();
+                        //puis on charge le lien
+                        desktop.browse(url);
+                    }
+                }
+                catch (Exception ex) 
                 {
-                    //on recupere le desktop
-                    desktop = Desktop.getDesktop();
-                    //puis on charge le lien
-                    desktop.browse(url);
+                    System.out.println(ex.getMessage());
                 }
             }
-            catch (Exception ex) 
+            //si l'utilisateur clic sur "rules"
+            else if(source == rulesMenuItem)
             {
-                System.out.println(ex.getMessage());
+                try 
+                {
+                    if (Desktop.isDesktopSupported())     
+                    {
+                        //on ouvre le pdf sur le bureau
+                        Desktop.getDesktop().open(new File(getClass().getClassLoader().getResource("pdf/LockNRoll.pdf").getPath()));
+                    }
+                } 
+                catch (IOException ex) 
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+            //si l'utilisateur clic sur "quitter"
+            else if(source == quitMenuItem)
+            {
+                //on ferme la fenetre
+                dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+                //on quitte le programme
+                System.exit(0);
             }
         }
-        //si l'utilisateur clic sur "rules"
-        else if(source == rulesMenuItem)
-        {
-            try 
-            {
-                if (Desktop.isDesktopSupported())     
-                {
-                    //on ouvre le pdf sur le bureau
-                    Desktop.getDesktop().open(new File(getClass().getClassLoader().getResource("LockNRoll.pdf").getPath()));
-                }
+        else if(e.getSource() instanceof JButton) {
+            if(e.getActionCommand().equals("button0")) {
+                this.selectOrMoveRolledDie(0);
+            }
+            else if(e.getActionCommand().equals("button1")) {
+                this.selectOrMoveRolledDie(1);
+            }
+            else if(e.getActionCommand().equals("button2")) {
+                this.selectOrMoveRolledDie(2);
+            }
+            else if(e.getActionCommand().equals("button3")) {
+                this.selectOrMoveRolledDie(3);
             } 
-            catch (IOException ex) 
-            {
-                System.out.println(ex.getMessage());
+            else if(e.getActionCommand().equals("button00")) {
+                this.selectOrMoveDie(0, 0);
+            }  
+            else if(e.getActionCommand().equals("button01")) {
+                this.selectOrMoveDie(0, 1);
+            }  
+            else if(e.getActionCommand().equals("button02")) {
+                this.selectOrMoveDie(0, 2);
+            }  
+            else if(e.getActionCommand().equals("button03")) {
+                this.selectOrMoveDie(0, 3);
+            }  
+            else if(e.getActionCommand().equals("button10")) {
+                this.selectOrMoveDie(1, 0);
+            }  
+            else if(e.getActionCommand().equals("button11")) {
+                this.selectOrMoveDie(1, 1);
+            }  
+            else if(e.getActionCommand().equals("button12")) {
+                this.selectOrMoveDie(1, 2);
+            }  
+            else if(e.getActionCommand().equals("button13")) {
+                this.selectOrMoveDie(1, 3);
+            }  
+            else if(e.getActionCommand().equals("button20")) {
+                this.selectOrMoveDie(2, 0);
+            }  
+            else if(e.getActionCommand().equals("button21")) {
+                this.selectOrMoveDie(2, 1);
+            }  
+            else if(e.getActionCommand().equals("button22")) {
+                this.selectOrMoveDie(2, 2);
+            }  
+            else if(e.getActionCommand().equals("button23")) {
+                this.selectOrMoveDie(2, 3);
+            }  
+            else if(e.getActionCommand().equals("button30")) {
+                this.selectOrMoveDie(3, 0);
+            }  
+            else if(e.getActionCommand().equals("button31")) {
+                this.selectOrMoveDie(3, 1);
+            }  
+            else if(e.getActionCommand().equals("button32")) {
+                this.selectOrMoveDie(3, 2);
+            }  
+            else if(e.getActionCommand().equals("button33")) {
+                this.selectOrMoveDie(3, 3);
             }
         }
-        //si l'utilisateur clic sur "quitter"
-        else if(source == quitMenuItem)
-        {
-            //on ferme la fenetre
-            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-            //on quitte le programme
-            System.exit(0);
+    }
+    
+    private void selectOrMoveDie(int posX, int posY) {
+        if(!(controler.selectBoardDie(posX, posY).getValue() == 0) && !(controler.selectBoardDie(posX, posY).getColor() == 0) && !controler.selectBoardDie(posX, posY).getLocked()) {   
+            this.selectBoardDie(posX, posY);
+        }
+        else if(selectedPosY == 4 && selectedRolledDie != null) {
+            this.moveRolledDie(selectedRolledDie, posX, posY, selectedPosX);
+        }
+        else if(selectedBoardDie != null) {
+            this.moveBoardDie(selectedBoardDie, posX, posY, selectedPosX, selectedPosY);
+        }
+    }
+    
+    private void selectOrMoveRolledDie(int posX) {
+        if(!(controler.selectRolledDie(posX).getValue() == 0) && !(controler.selectRolledDie(posX).getColor() == 0)) {
+            this.selectRolledDie(posX);
+        }
+        else if(selectedBoardDie != null)
+            this.moveBoardDie(selectedBoardDie, posX, selectedPosX, selectedPosY);
+    }
+    
+    private void selectRolledDie(int posX) {
+        if(!(controler.selectRolledDie(posX).getValue() == 0) && !(controler.selectRolledDie(posX).getColor() == 0)) {
+            selectedRolledDie = controler.selectRolledDie(posX);
+            selectedBoardDie = null;
+            selectedPosX = posX;
+            selectedPosY = 4;
+            System.out.println("select rolled " + posX);
+        }
+    }
+    
+    private void selectBoardDie(int posX, int posY) {
+            selectedRolledDie = controler.selectRolledDie(posX);
+            selectedBoardDie = controler.selectBoardDie(posX, posY);
+            selectedRolledDie = null;
+            selectedPosX = posX;
+            selectedPosY = posY;
+            System.out.println("select board " + posX + ", " + posY);
+        
+    }
+    
+    private void moveRolledDie(Die selectedDie, int posX, int posY, int selectedPosX) {
+        if(controler.selectBoardDie(posX, posY).getValue() == 0 && controler.selectBoardDie(posX, posY).getColor() == 0) {
+            controler.moveRolledDie(selectedDie, posX, posY, selectedPosX);
+            selectedBoardDie = null;
+            selectedRolledDie = null;
+            
+            System.out.println("move rolled " + selectedPosX + "vers " + posX + ", " + posY);
+            selectedPosX = 4;
+            selectedPosY = 4;
+        }
+    }
+    
+    private void moveBoardDie(Die selectedDie, int posX, int posY, int selectedPosX, int selectedPosY) {
+        if(controler.selectBoardDie(posX, posY).getValue() == 0 && controler.selectBoardDie(posX, posY).getColor() == 0) {
+            controler.moveBoardDie(selectedDie, posX, posY, selectedPosX, selectedPosY);
+            selectedBoardDie = null;
+            selectedRolledDie = null;
+            
+            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX + ", " + posY);
+            selectedPosX = 4;
+            selectedPosY = 4;
+        }
+    }
+    
+    private void moveBoardDie(Die selectedDie, int posX, int selectedPosX, int selectedPosY) {
+        if(controler.selectRolledDie(posX).getValue() == 0 && controler.selectRolledDie(posX).getColor() == 0) {
+            controler.moveBoardDie(selectedDie, posX, selectedPosX, selectedPosY);
+            selectedBoardDie = null;
+            selectedRolledDie = null;
+            
+            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX);
+            selectedPosX = 4;
+            selectedPosY = 4;
         }
     }
 
     public void updateBoardDice(Board board) {
-        Dice[][] diceBoard = board.getDiceBoard();
+        Die[][] diceBoard = board.getDiceBoard();
         
-        for(int i = 0; i < Constant.SIZE; i++) {
-            for(int j = 0; j < Constant.SIZE; j++) {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
                 try {
                     jButtonDiceBoard[i][j].setIcon(new ImageIcon(this.getDieImage(diceBoard[i][j])));
                 }
@@ -270,9 +407,9 @@ public class MainView extends JFrame implements Observer, ActionListener
     }
     
     public void updateRolledDice(Board board) {
-        GameDice[] rolledDice = board.getRolledDice();
+        Die[] rolledDice = board.getRolledDice();
         
-        for(int i = 0; i < Constant.SIZE; i++) {
+        for(int i = 0; i < 4; i++) {
             try {
                 jButtonRolledDice[i].setIcon(new ImageIcon(this.getDieImage(rolledDice[i])));
             } 
@@ -282,10 +419,10 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
-    private Image getDieImage(Dice die) throws IOException {
+    private Image getDieImage(Die die) throws IOException {
     Image img = null;
             
-        if(die.getColor() == DiceTypes.Color.BLUE.getInt()) {
+        if(die.getColor() == DieTypes.Color.BLUE.getInt()) {
             if(die.getValue() == 1)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 1.jpg"));
             else if(die.getValue() == 2)
@@ -295,7 +432,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             else if(die.getValue() == 4)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 4.jpg"));
         }
-        else if(die.getColor() == DiceTypes.Color.GREEN.getInt()) {
+        else if(die.getColor() == DieTypes.Color.GREEN.getInt()) {
             if(die.getValue() == 1)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 1.jpg"));
             else if(die.getValue() == 2)
@@ -305,7 +442,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             else if(die.getValue() == 4)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 4.jpg"));
         }
-        else if(die.getColor() == DiceTypes.Color.RED.getInt()) {
+        else if(die.getColor() == DieTypes.Color.RED.getInt()) {
             if(die.getValue() == 1)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 1.jpg"));
             else if(die.getValue() == 2)
@@ -315,7 +452,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             else if(die.getValue() == 4)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 4.jpg"));
         }
-        else if(die.getColor() == DiceTypes.Color.YELLOW.getInt()) {
+        else if(die.getColor() == DieTypes.Color.YELLOW.getInt()) {
             if(die.getValue() == 1)
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 1.jpg"));
             else if(die.getValue() == 2)

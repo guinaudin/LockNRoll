@@ -5,9 +5,8 @@
 package model;
 
 import model.board.Board;
-import model.dice.Dice;
-import model.dice.DiceTypes;
-import model.dice.GameDice;
+import model.dice.Die;
+import model.dice.DieTypes;
 import model.player.Player;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +15,7 @@ import org.testng.annotations.Test;
 
 public class CaseTestNGTest {
     private CaseTest caseTest;
-    private Dice[][] diceBoard;
+    private Die[][] diceBoard;
     private Board board;
     
     public CaseTestNGTest() {
@@ -25,7 +24,7 @@ public class CaseTestNGTest {
     @BeforeClass
     public void setUpClass() {
         board = new Board();
-        diceBoard = new Dice[Constant.SIZE][Constant.SIZE];
+        diceBoard = new Die[4][4];
     }
     
     @AfterClass
@@ -33,8 +32,8 @@ public class CaseTestNGTest {
     {
         board = null;
         caseTest = null;
-        for(int i = 0; i < Constant.SIZE; i++)
-            for(int j = 0; j < Constant.SIZE; j++)
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
                 diceBoard[i][j] = null;
     }
     
@@ -46,33 +45,33 @@ public class CaseTestNGTest {
     public Object[][] createClearAllLineCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearAllLineCombinations")
-    void testClearAllLineCombinations(Dice[][] diceBoard) {
+    void testClearAllLineCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -89,33 +88,33 @@ public class CaseTestNGTest {
     public Object[][] createClearAllColumnCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearAllColumnCombinations")
-    void testClearAllColumnCombinations(Dice[][] diceBoard) {
+    void testClearAllColumnCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -132,33 +131,33 @@ public class CaseTestNGTest {
     public Object[][] createClearAllDiagonalCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(4, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+                {new Die(4, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearAllDiagonalCombinations")
-    void testClearAllDiagonalCombinations(Dice[][] diceBoard) {
+    void testClearAllDiagonalCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -175,33 +174,33 @@ public class CaseTestNGTest {
     public Object[][] createClearAllCornerCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(3, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearAllCornerCombinations")
-    void testClearAllCornerCombinations(Dice[][] diceBoard) {
+    void testClearAllCornerCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -218,33 +217,33 @@ public class CaseTestNGTest {
     public Object[][] createClearAllCubeCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearAllCubeCombinations")
-    void testClearAllCubeCombinations(Dice[][] diceBoard) {
+    void testClearAllCubeCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -261,33 +260,33 @@ public class CaseTestNGTest {
     public Object[][] createClearMiddleCubeCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(3, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+            new Die[][] {
+                {new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(2, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(3, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
             }
         },   
         };
     } 
     
     @Test(dataProvider = "ClearMiddleCubeCombinations")
-    void testClearMiddleCubeCombinations(Dice[][] diceBoard) {
+    void testClearMiddleCubeCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -304,33 +303,33 @@ public class CaseTestNGTest {
     public Object[][] createClearMiddleBottomRightUpperLeftCubeCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(3, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+            new Die[][] {
+                {new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(3, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true)},
             }
         },   
         };
     }
     
     @Test(dataProvider = "ClearMiddleBottomRightUpperLeftCubeCombinations")
-    void testClearMiddleBottomRightUpperLeftCubeCombinations(Dice[][] diceBoard) {
+    void testClearMiddleBottomRightUpperLeftCubeCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -347,33 +346,33 @@ public class CaseTestNGTest {
     public Object[][] createClearSecondLineSecondColumnCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(4, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt())},
+                {new Die(4, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearSecondLineSecondColumnCombinations")
-    void testClearSecondLineSecondColumnCombinations(Dice[][] diceBoard) {
+    void testClearSecondLineSecondColumnCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -391,33 +390,33 @@ public class CaseTestNGTest {
     public Object[][] createClearSecondLineCornerSecondDiagoalCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(3, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(1, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearSecondLineCornerSecondDiagoalCombinations")
-    void testClearSecondLineCornerSecondDiagoalCombinations(Dice[][] diceBoard) {
+    void testClearSecondLineCornerSecondDiagoalCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -435,33 +434,33 @@ public class CaseTestNGTest {
     public Object[][] createClearRightMiddleCubeFirstDiagoalLastLineCombinations() {
         return new Object[][] {
         { 
-            new GameDice[][] {
-                {new GameDice(1, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt())},
+            new Die[][] {
+                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
 
-                {new GameDice(3, DiceTypes.Color.RED.getInt()),
-                new GameDice(3, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(4, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.YELLOW.getInt())},
+                {new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(3, DieTypes.Color.GREEN.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
 
-                {new GameDice(1, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(4, DiceTypes.Color.GREEN.getInt()),
-                new GameDice(4, DiceTypes.Color.RED.getInt())},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.GREEN.getInt(), true),
+                new Die(4, DieTypes.Color.RED.getInt(), true)},
 
-                {new GameDice(2, DiceTypes.Color.BLUE.getInt()),
-                new GameDice(2, DiceTypes.Color.YELLOW.getInt()),
-                new GameDice(2, DiceTypes.Color.RED.getInt()),
-                new GameDice(2, DiceTypes.Color.GREEN.getInt())},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(2, DieTypes.Color.RED.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
             }
         },   
         };
     }   
     
     @Test(dataProvider = "ClearRightMiddleCubeFirstDiagoalLastLineCombinations")
-    void testClearRightMiddleCubeFirstDiagoalLastLineCombinations(Dice[][] diceBoard) {
+    void testClearRightMiddleCubeFirstDiagoalLastLineCombinations(Die[][] diceBoard) {
         board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
@@ -474,8 +473,8 @@ public class CaseTestNGTest {
     private void printBoard() {
         diceBoard = board.getDiceBoard();
         
-        for(int i = 0; i < Constant.SIZE; i++) {
-            for(int j = 0; j < Constant.SIZE; j++) {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
                 if(diceBoard[i][j].getColor() == 0 && diceBoard[i][j].getValue() == 0)
                     System.out.print("O");
                 else
@@ -486,8 +485,8 @@ public class CaseTestNGTest {
     }
     
     private void printClearedBoard(Boolean[][] clearedBoard) {
-        for(int i = 0; i < Constant.SIZE; i++) {
-            for(int j = 0; j < Constant.SIZE; j++) {
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
                 if(clearedBoard[i][j])
                     System.out.print("O");
                 else

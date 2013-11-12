@@ -1,5 +1,5 @@
-import controller.AbstractControler;
-import controller.BoardControler;
+import controler.AbstractControler;
+import controler.BoardControler;
 import javax.swing.SwingUtilities;
 import model.AbstractModel;
 import model.Game;

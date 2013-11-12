@@ -4,7 +4,7 @@ import observer.Observable;
 import observer.Observer;
 import java.util.ArrayList;
 import model.board.Board;
-import model.dice.Dice;
+import model.dice.Die;
 
 public abstract class AbstractModel implements Observable {
     private ArrayList<Observer> listObserver = new ArrayList<Observer>();
@@ -13,7 +13,15 @@ public abstract class AbstractModel implements Observable {
     
     public abstract void makeTurn();
     
-    public abstract void setDice(Dice dice, int posX, int posY);
+    public abstract Die selectBoardDie(int posX, int posY);
+    
+    public abstract Die selectRolledDie(int posX);
+    
+    public abstract void moveBoardDie(Die dice, int posX, int posY, int selectedPosX, int selectedPosY);
+    
+    public abstract void moveBoardDie(Die dice, int posX, int selectedPosX, int selectedPosY);
+    
+    public abstract void moveRolledDie(Die die, int posX, int posY, int selectedPosX);
     
     public void addObserver(Observer obs) {
         this.listObserver.add(obs);
