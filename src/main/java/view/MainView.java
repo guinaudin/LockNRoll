@@ -2,6 +2,7 @@ package view;
 
 import controler.AbstractControler;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import model.board.Board;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -48,6 +49,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private Die selectedBoardDie;
     private int selectedPosX;
     private int selectedPosY;
+    private JProgressBar progressBarScore;
     
     /**constructeur*/
     public MainView(AbstractControler controler) {
@@ -184,9 +186,36 @@ public class MainView extends JFrame implements Observer, ActionListener
             rolledDicePanel.add(jButtonRolledDice[i]);
         }
         
+        /*JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+        topPanel.setBackground(Color.WHITE); 
+        
+        JButton rollButton = new JButton("Roll");
+        rollButton.addActionListener(this);
+        rollButton.setMaximumSize(new Dimension(50,50));
+        rollButton.setMinimumSize(new Dimension(50,50));
+        rollButton.setPreferredSize(new Dimension(50,50));
+        
+        topPanel.add(rollButton);
+        
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        scorePanel.setBackground(Color.WHITE); 
+        
+        JLabel score = new JLabel("Score : " + 0);
+        scorePanel.add(score);
+        scorePanel.add(Box.createHorizontalStrut(10));
+        
+        progressBarScore = new JProgressBar(0, 100);
+        progressBarScore.setValue(0);
+        progressBarScore.setStringPainted(true);
+        scorePanel.add(progressBarScore);
+        topPanel.add(scorePanel);*/
+        
+        //boardPanel.add(topPanel,BorderLayout.NORTH);
         boardPanel.add(rolledDicePanel,BorderLayout.WEST);
         boardPanel.add(diceBoardPanel,BorderLayout.CENTER);
-        //this.add(scorePanel,BorderLayout.NORTH);
         
         return boardPanel;
     }
@@ -352,7 +381,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedPosX = posX;
             selectedPosY = posY;
             System.out.println("select board " + posX + ", " + posY);
-        
     }
     
     private void moveRolledDie(Die selectedDie, int posX, int posY, int selectedPosX) {
