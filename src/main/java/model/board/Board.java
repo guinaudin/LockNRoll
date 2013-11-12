@@ -55,7 +55,6 @@ public class Board {
     
     public void setBoardDie(Die die, int posX, int posY) {
         diceBoard[posX][posY] = die;
-        System.out.println(diceBoard[posX][posY].getColor() + " " + diceBoard[posX][posY].getValue());
     }
     
     public void setRolledDie(Die die, int posX) {

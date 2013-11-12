@@ -4,7 +4,6 @@ public class Die {
     protected int value;
     protected int color;
     private boolean locked;
-    //private boolean selected;
 
     public Die() {
         value = 0;
@@ -17,7 +16,6 @@ public class Die {
         this.value = value;
         this.color = color;
         locked = true;
-        //selected = false;
     }
     
     public boolean getLocked() {
@@ -43,12 +41,4 @@ public class Die {
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
-    
-    /*public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-    
-    public boolean getSelected() {
-        return selected;
-    }*/
 }
