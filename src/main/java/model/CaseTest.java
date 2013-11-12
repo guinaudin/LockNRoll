@@ -16,6 +16,11 @@ public class CaseTest {
     private Boolean[][] clearDiagonals;
     private Boolean[][] clearCorners;
     private Boolean[][] clearCubes;
+    private Boolean[][] clearLineDiceBoard;
+    private Boolean[][] clearColumnDiceBoard;
+    private Boolean[][] clearDiagonalDiceBoard;
+    private Boolean[][] clearCornerDiceBoard;
+    private Boolean[][] clearCubeDiceBoard;
     
     public CaseTest(Board board, Player player) {
         this.board = board;
@@ -49,13 +54,13 @@ public class CaseTest {
         clearCubes = this.findCubeCombinations();
         //Clear board
         this.clearBoard();
-        //reset UI
     }
     
     private void clearBoard() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                if(this.clearLines[i][j] || this.clearColumns[i][j] || this.clearDiagonals[i][j] || this.clearCorners[i][j] || this.clearCubes[i][j]) {
+                if(clearLineDiceBoard[i][j] || clearColumnDiceBoard[i][j] 
+                || clearDiagonalDiceBoard[i][j] || clearCornerDiceBoard[i][j] || clearCubeDiceBoard[i][j]) {
                     board.setBoardDie(new Die(0, 0, false), i, j);
                     System.out.println("cleared " + i + ", " + j);
                 }
@@ -66,7 +71,7 @@ public class CaseTest {
     public Boolean[][] findLineCombinations() {
         int j = 0;
         boolean clear = false;
-        Boolean[][] clearLineDiceBoard = new Boolean[4][4];
+        clearLineDiceBoard = new Boolean[4][4];
         
         for(int k = 0; k < 4; k++)
             for(int l = 0; l < 4; l++)
@@ -79,16 +84,17 @@ public class CaseTest {
                 combination[k] = null;
             
             do {
-                if(diceBoard[i][j].getLocked()) {
+                if(diceBoard[i][j].getColor() != 0) {
                     combination[j] = diceBoard[i][j];
                 }
                 else
                     j = 4;
                 if(combination[3] != null) {
-                    
+                    System.out.println("line");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
+                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 4; k++) {
                             for(int l = 0; l < 4; l++) {
@@ -108,7 +114,7 @@ public class CaseTest {
     public Boolean[][] findColumnCombinations() {
         int j = 0;
         boolean clear = false;
-        Boolean[][] clearColumnDiceBoard = new Boolean[4][4];
+        clearColumnDiceBoard = new Boolean[4][4];
         
         for(int k = 0; k < 4; k++)
             for(int l = 0; l < 4; l++)
@@ -121,15 +127,17 @@ public class CaseTest {
                 combination[k] = null;
             
             do {
-                if(diceBoard[j][i].getLocked() == true) {
+                if(diceBoard[i][j].getColor() != 0) {
                     combination[j] = diceBoard[j][i];
                 }
                 else
                     j = 4;
                 if(combination[3] != null) {
+                    System.out.println("Column");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
+                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 4; k++) {
                             for(int l = 0; l < 4; l++) {
@@ -149,7 +157,7 @@ public class CaseTest {
     public Boolean[][] findDiagonalCombinations() {
         int j = 0;
         boolean clear = false;
-        Boolean[][] clearDiagonalDiceBoard = new Boolean[4][4];
+        clearDiagonalDiceBoard = new Boolean[4][4];
             
         for(int k = 0; k < 4; k++)
             combination[k] = null;
@@ -158,8 +166,8 @@ public class CaseTest {
             for(int l = 0; l < 4; l++)
                 clearDiagonalDiceBoard[k][l] = false;
            
-        if(diceBoard[0][0].getLocked() && diceBoard[1][1].getLocked() &&
-           diceBoard[2][2].getLocked() && diceBoard[3][3].getLocked()) {
+        if(diceBoard[0][0].getColor() != 0 && diceBoard[1][1].getColor() != 0 &&
+           diceBoard[2][2].getColor() != 0 && diceBoard[3][3].getColor() != 0) {
             combination[0] = diceBoard[0][0];
             combination[1] = diceBoard[1][1];
             combination[2] = diceBoard[2][2];
@@ -167,9 +175,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
+            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][0] = true;
                 clearDiagonalDiceBoard[1][1] = true;
@@ -181,8 +191,8 @@ public class CaseTest {
         for(int k = 0; k < 4; k++)
             combination[k] = null;
         
-        if(diceBoard[0][3].getLocked() && diceBoard[1][2].getLocked() &&
-           diceBoard[2][1].getLocked() && diceBoard[3][0].getLocked()) {
+        if(diceBoard[0][3].getColor() != 0 && diceBoard[1][2].getColor() != 0 &&
+           diceBoard[2][1].getColor() != 0 && diceBoard[3][0].getColor() != 0) {
             combination[0] = diceBoard[0][3];
             combination[1] = diceBoard[1][2];
             combination[2] = diceBoard[2][1];
@@ -190,9 +200,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
+            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][3] = true;
                 clearDiagonalDiceBoard[1][2] = true;
@@ -207,7 +219,7 @@ public class CaseTest {
     public Boolean[][] findCornerCombinations() {
         int j = 0;
         boolean clear = false;
-        Boolean[][] clearCornerDiceBoard = new Boolean[4][4];
+        clearCornerDiceBoard = new Boolean[4][4];
             
         for(int k = 0; k < 4; k++)
             combination[k] = null;
@@ -216,8 +228,8 @@ public class CaseTest {
             for(int l = 0; l < 4; l++)
                 clearCornerDiceBoard[k][l] = false;
            
-        if(diceBoard[0][0].getLocked() && diceBoard[0][3].getLocked() &&
-           diceBoard[3][0].getLocked() && diceBoard[3][3].getLocked()) {
+        if(diceBoard[0][0].getColor() != 0 && diceBoard[0][3].getColor() != 0 &&
+           diceBoard[3][0].getColor() != 0 && diceBoard[3][3].getColor() != 0) {
             combination[0] = diceBoard[0][0];
             combination[1] = diceBoard[0][3];
             combination[2] = diceBoard[3][0];
@@ -225,9 +237,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
+            System.out.println("Corner");
             clear = this.calculateScore(combination);
 
             if(clear) {
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearCornerDiceBoard[0][0] = true;
                 clearCornerDiceBoard[0][3] = true;
@@ -241,7 +255,7 @@ public class CaseTest {
     
     public Boolean[][] findCubeCombinations() {
         boolean clear = false;
-        Boolean[][] clearCubeDiceBoard = new Boolean[4][4];
+        clearCubeDiceBoard = new Boolean[4][4];
             
         for(int k = 0; k < 4; k++)
             for(int l = 0; l < 4; l++)
@@ -252,7 +266,8 @@ public class CaseTest {
                 for(int k = 0; k < 4; k++)
                     combination[k] = null;
                 
-                if(diceBoard[i][j].getLocked() && diceBoard[i+1][j].getLocked() && diceBoard[i][j+1].getLocked() && diceBoard[i+1][j+1].getLocked()) {
+                if(diceBoard[i][j].getColor() != 0 && diceBoard[i+1][j].getColor() != 0 
+                && diceBoard[i][j+1].getColor() != 0 && diceBoard[i+1][j+1].getColor() != 0) {
                     combination[0] = diceBoard[i][j];
                     combination[1] = diceBoard[i+1][j];
                     combination[2] = diceBoard[i][j+1];
@@ -260,9 +275,11 @@ public class CaseTest {
                 }
                 
                 if(combination[3] != null) {
+                    System.out.println("Cube");
                     clear = this.calculateScore(combination);
                 
                     if(clear) {
+                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 3; k++) {
                             for(int l = 0; l < 3; l++) {

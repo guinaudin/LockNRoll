@@ -347,7 +347,7 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.BLUE.getInt(), true)},
@@ -359,13 +359,13 @@ public class CaseTestNGTest {
 
                 {new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(3, DieTypes.Color.RED.getInt(), true)},
 
-                {new Die(4, DieTypes.Color.YELLOW.getInt(), false),
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.YELLOW.getInt(), true),
                 new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
             }
         },   
         };
