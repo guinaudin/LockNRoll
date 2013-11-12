@@ -57,7 +57,7 @@ public class MainViewNGTest {
     #                           MoveRolledDice                        #
     ################################################################**/
 
-    @DataProvider(name = "MoveRolledDice")
+    /*@DataProvider(name = "MoveRolledDice")
     public Object[][] createMoveRolledDice() {
         return new Object[][] {
             {new Integer(1)},
@@ -76,5 +76,5 @@ public class MainViewNGTest {
     @Test(dataProvider = "MoveRolledDice")
     void testIncorrectSameColorSameNumberCombination(Die[] combination) {
         //Assert.assertEquals(CT.testSameColorSameNumber(combination), false);
-    }
+    }*/
 }

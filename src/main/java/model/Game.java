@@ -30,6 +30,7 @@ public class Game extends AbstractModel{
     }
     
     public void makeTurn() {
+        System.out.println("roll");
         int cpt = 0;
         int i = -1;
         //caseTest(board, player)
