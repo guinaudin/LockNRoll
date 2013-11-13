@@ -39,8 +39,13 @@ public class CaseTest {
             combination[i] = null;
     }
     
-    public void findCombinations() {
+    public void findCombinations(Board board) {
+        this.board = board;
         diceBoard = board.getDiceBoard();
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                System.out.println("couleur :" + board.getBoardDie(i,j).getColor() + " num : " + board.getBoardDie(i,j).getValue());
+
 
         //Test Lines
         clearLines = this.findLineCombinations();
