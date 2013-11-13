@@ -38,7 +38,7 @@ public class Game extends AbstractModel{
         //victory test
         //rolldice
         board.lockDice();
-        caseTest.findCombinations();
+        caseTest.findCombinations(board);
         
         do {
             i++;

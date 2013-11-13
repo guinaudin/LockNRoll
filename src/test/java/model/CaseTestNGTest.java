@@ -373,11 +373,10 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearSecondLineSecondColumnCombinations")
     void testClearSecondLineSecondColumnCombinations(Die[][] diceBoard) {
-        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : Second Line, Second Column\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations();
+        caseTest.findCombinations(board);
         this.printBoard();
         System.out.println();
     }
@@ -417,11 +416,10 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearSecondLineCornerSecondDiagoalCombinations")
     void testClearSecondLineCornerSecondDiagoalCombinations(Die[][] diceBoard) {
-        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : Second Line, Corners, Second Diagonal\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations();
+        caseTest.findCombinations(board);
         this.printBoard();
         System.out.println();
     }
@@ -461,11 +459,10 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearRightMiddleCubeFirstDiagoalLastLineCombinations")
     void testClearRightMiddleCubeFirstDiagoalLastLineCombinations(Die[][] diceBoard) {
-        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : Middle Right Cube, First Diagoal, Last Line\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations();
+        caseTest.findCombinations(board);
         this.printBoard();
         System.out.println();
     }
