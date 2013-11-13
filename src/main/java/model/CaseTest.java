@@ -65,7 +65,7 @@ public class CaseTest {
                 || clearDiagonalDiceBoard[i][j] || clearCornerDiceBoard[i][j] || clearCubeDiceBoard[i][j]) {
                     board.setBoardDie(new Die(0, 0, false), i, j);
                     board.setUnlockedPlaces(board.getUnlockedPlaces()+1);
-                    //System.out.println("cleared " + i + ", " + j);
+                    System.out.println("cleared " + i + ", " + j);
                 }
             }
         }
@@ -73,7 +73,7 @@ public class CaseTest {
     
     public Boolean[][] findLineCombinations() {
         int j = 0;
-        boolean clear = false;
+        boolean clear;
         clearLineDiceBoard = new Boolean[4][4];
         
         for(int k = 0; k < 4; k++)
@@ -93,7 +93,7 @@ public class CaseTest {
                 else
                     j = 4;
                 if(combination[3] != null) {
-                    //System.out.println("line");
+                    System.out.println("line");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
@@ -130,17 +130,17 @@ public class CaseTest {
                 combination[k] = null;
             
             do {
-                if(diceBoard[i][j].getColor() != 0) {
+                if(diceBoard[j][i].getColor() != 0) {
                     combination[j] = diceBoard[j][i];
                 }
                 else
                     j = 4;
                 if(combination[3] != null) {
-                    //System.out.println("Column");
+                    System.out.println("Column");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
-                        //System.out.println("Clear");
+                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 4; k++) {
                             for(int l = 0; l < 4; l++) {
@@ -178,11 +178,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            //System.out.println("Diago");
+            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                //System.out.println("Clear");
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][0] = true;
                 clearDiagonalDiceBoard[1][1] = true;
@@ -203,11 +203,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            //System.out.println("Diago");
+            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                //System.out.println("Clear");
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][3] = true;
                 clearDiagonalDiceBoard[1][2] = true;
@@ -240,11 +240,11 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            //System.out.println("Corner");
+            System.out.println("Corner");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                //System.out.println("Clear");
+                System.out.println("Clear");
                 //clear the combination on the board
                 clearCornerDiceBoard[0][0] = true;
                 clearCornerDiceBoard[0][3] = true;
@@ -278,11 +278,11 @@ public class CaseTest {
                 }
                 
                 if(combination[3] != null) {
-                    //System.out.println("Cube");
+                    System.out.println("Cube");
                     clear = this.calculateScore(combination);
                 
                     if(clear) {
-                        //System.out.println("Clear");
+                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 3; k++) {
                             for(int l = 0; l < 3; l++) {
