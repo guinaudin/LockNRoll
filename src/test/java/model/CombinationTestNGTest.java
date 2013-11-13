@@ -186,6 +186,58 @@ public class CombinationTestNGTest {
     }
     
     /**################################################################
+    #                                EachColor                        #
+    ################################################################**/
+    
+    @DataProvider(name = "CorrectEachColor")
+    public Object[][] createCorrectEachColorCombination() {
+        return new Object[][] {
+            { new Die[] {
+                new Die(3, DieTypes.Color.BLUE.getInt(), true), 
+                new Die(3, DieTypes.Color.RED.getInt(), true),
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true), 
+                new Die(3, DieTypes.Color.GREEN.getInt(), true) },
+            },
+                
+            { new Die[] {
+                new Die(1, DieTypes.Color.RED.getInt(), true), 
+                new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true), 
+                new Die(1, DieTypes.Color.GREEN.getInt(), true) },
+            },
+        };
+    }
+    
+    @DataProvider(name = "IncorrectEachColor")
+    public Object[][] createIncorrectEachColorCombination() {
+        return new Object[][] {
+            { new Die[] {
+                new Die(2, DieTypes.Color.BLUE.getInt(), true), 
+                new Die(2, DieTypes.Color.RED.getInt(), true),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true), 
+                new Die(2, DieTypes.Color.BLUE.getInt(), true) },
+            },
+                
+            { new Die[] {
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true), 
+                new Die(3, DieTypes.Color.GREEN.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true), 
+                new Die(4, DieTypes.Color.RED.getInt(), true) },
+            },
+        };
+    }
+
+    @Test(dataProvider = "CorrectEachColor")
+    void testCorrectEachColorCombination(Die[] combination) {
+        Assert.assertEquals(CT.testEachColor(combination), true);
+    }
+    
+    @Test(dataProvider = "IncorrectSameColor")
+    void testIncorrectEachColorCombination(Die[] combination) {
+        Assert.assertEquals(CT.testEachColor(combination), false);
+    }
+    
+    /**################################################################
     #                       EachColorEachNumber                       #
     ################################################################**/
     
