@@ -26,11 +26,11 @@ public class Game extends AbstractModel{
         board = new Board();
         board.rollDice();
         
-        notifyObserver(board);
+        notifyBoardObserver(board);
     }
     
     public void makeTurn() {
-        System.out.println("roll");
+        //System.out.println("roll");
         int cpt = 0;
         int i = -1;
         //caseTest(board, player)
@@ -38,7 +38,8 @@ public class Game extends AbstractModel{
         //victory test
         //rolldice
         board.lockDice();
-        caseTest.findCombinations(board);
+        caseTest.findCombinations(board, player);
+        System.out.println();
         
         do {
             i++;
@@ -50,7 +51,8 @@ public class Game extends AbstractModel{
             board.rollDice();
         }
         
-        notifyObserver(board);
+        notifyScoreObserver(player.getScore());
+        notifyBoardObserver(board);
     }
 
     public Die selectBoardDie(int posX, int posY) {
@@ -65,9 +67,10 @@ public class Game extends AbstractModel{
         board.getBoardDie(posX, posY).setColor(die.getColor());
         board.getBoardDie(posX, posY).setValue(die.getValue());
         board.setRolledDie(new Die(0, 0, true), selectedPosX);
+        board.setUnlockedPlaces(board.getUnlockedPlaces() - 1);
         
         //On met à jour 
-        notifyObserver(board);
+        notifyBoardObserver(board);
     }
     
     public void moveBoardDie(Die die, int posX, int posY, int selectedPosX, int selectedPosY) {
@@ -75,15 +78,16 @@ public class Game extends AbstractModel{
         board.setBoardDie(new Die(0, 0, true), selectedPosX, selectedPosY);
         
         //On met à jour 
-        notifyObserver(board);
+        notifyBoardObserver(board);
     }
     
     public void moveBoardDie(Die die, int posX, int selectedPosX, int selectedPosY) {
         board.setRolledDie(die, posX);
         board.setBoardDie(new Die(0, 0, true), selectedPosX, selectedPosY);
+        board.setUnlockedPlaces(board.getUnlockedPlaces() + 1);
         
         //On met à jour 
-        notifyObserver(board);
+        notifyBoardObserver(board);
     }
 
     public Board getBoard() {
