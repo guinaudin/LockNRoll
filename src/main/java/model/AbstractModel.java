@@ -5,6 +5,7 @@ import observer.Observer;
 import java.util.ArrayList;
 import model.board.Board;
 import model.dice.Die;
+import model.player.Player;
 
 public abstract class AbstractModel implements Observable {
     private ArrayList<Observer> listObserver = new ArrayList<Observer>();
@@ -31,10 +32,16 @@ public abstract class AbstractModel implements Observable {
         listObserver = new ArrayList<Observer>();
     }
 
-    public void notifyObserver(Board board) {
+    public void notifyBoardObserver(Board board) {
         for(Observer obs : listObserver) {
              obs.updateBoardDice(board);
              obs.updateRolledDice(board);
+        }
+    }
+    
+    public void notifyScoreObserver(int score) {
+        for(Observer obs : listObserver) {
+             obs.updateScore(score);
         }
     }
 }

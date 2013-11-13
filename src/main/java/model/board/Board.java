@@ -42,6 +42,10 @@ public class Board {
         return unlockedPlaces;
     }
     
+    public void setUnlockedPlaces(int unlockedPlaces) {
+        this.unlockedPlaces = unlockedPlaces;
+    }
+    
     public Die[][] getDiceBoard() {
         return diceBoard;
     }

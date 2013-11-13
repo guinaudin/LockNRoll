@@ -24,6 +24,7 @@ public class CaseTestNGTest {
     @BeforeClass
     public void setUpClass() {
         board = new Board();
+        //player = new Player();
         diceBoard = new Die[4][4];
     }
     
@@ -119,6 +120,49 @@ public class CaseTestNGTest {
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : All Columns\nO = Free place\nX = Dice\n");
+        this.printClearedBoard(caseTest.findColumnCombinations());
+        System.out.println();
+    }
+    
+    /**################################################################
+    #                     ClearOneColumnCombination                   #
+    ################################################################**/
+    
+    @DataProvider(name = "ClearOneColumnCombinations")
+    public Object[][] createClearOneColumnCombinations() {
+        return new Object[][] {
+        { 
+            new Die[][] {
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(2, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.GREEN.getInt(), true),
+                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
+
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(3, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.RED.getInt(), true),
+                new Die(3, DieTypes.Color.RED.getInt(), true)},
+
+                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
+                new Die(4, DieTypes.Color.BLUE.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
+            }
+        },   
+        };
+    }   
+    
+    @Test(dataProvider = "ClearOneColumnCombinations")
+    void testClearOneColumnCombinations(Die[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
+        caseTest = new CaseTest(board, new Player());
+        
+        System.out.println("@Test - Clear : First Column\nO = Free place\nX = Dice\n");
         this.printClearedBoard(caseTest.findColumnCombinations());
         System.out.println();
     }
@@ -350,7 +394,7 @@ public class CaseTestNGTest {
                 {new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
 
                 {new Die(2, DieTypes.Color.BLUE.getInt(), true),
                 new Die(1, DieTypes.Color.GREEN.getInt(), true),
@@ -373,10 +417,11 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearSecondLineSecondColumnCombinations")
     void testClearSecondLineSecondColumnCombinations(Die[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : Second Line, Second Column\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations(board);
+        caseTest.findCombinations(board, new Player());
         this.printBoard();
         System.out.println();
     }
@@ -416,10 +461,11 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearSecondLineCornerSecondDiagoalCombinations")
     void testClearSecondLineCornerSecondDiagoalCombinations(Die[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
         System.out.println("@Test - Clear : Second Line, Corners, Second Diagonal\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations(board);
+        caseTest.findCombinations(board, new Player());
         this.printBoard();
         System.out.println();
     }
@@ -459,10 +505,11 @@ public class CaseTestNGTest {
     
     @Test(dataProvider = "ClearRightMiddleCubeFirstDiagoalLastLineCombinations")
     void testClearRightMiddleCubeFirstDiagoalLastLineCombinations(Die[][] diceBoard) {
+        board.setDiceBoard(diceBoard);
         caseTest = new CaseTest(board, new Player());
         
-        System.out.println("@Test - Clear : Middle Right Cube, First Diagoal, Last Line\nO = Free place\nX = Dice\n");
-        caseTest.findCombinations(board);
+        System.out.println("@Test - Clear : Middle Right Cube, First Diagonal, Last Line\nO = Free place\nX = Dice\n");
+        caseTest.findCombinations(board, new Player());
         this.printBoard();
         System.out.println();
     }

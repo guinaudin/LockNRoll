@@ -52,6 +52,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private int selectedPosX;
     private int selectedPosY;
     private JProgressBar progressBarScore;
+    private JLabel scoreLabel;
     
     /**constructeur*/
     public MainView(AbstractControler controler) {
@@ -223,8 +224,8 @@ public class MainView extends JFrame implements Observer, ActionListener
         scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         scorePanel.setBackground(Color.WHITE); 
         
-        JLabel score = new JLabel("                 Score : " + 0);
-        scorePanel.add(score);
+        scoreLabel = new JLabel("                 Score : " + 0);
+        scorePanel.add(scoreLabel);
         scorePanel.add(Box.createVerticalStrut(5));
         
         progressBarScore = new JProgressBar(0, 100);
@@ -396,7 +397,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBoardDie = null;
             selectedPosX = posX;
             selectedPosY = 4;
-            System.out.println("select rolled " + posX);
+            //System.out.println("select rolled " + posX);
         }
     }
     
@@ -406,7 +407,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedRolledDie = null;
             selectedPosX = posX;
             selectedPosY = posY;
-            System.out.println("select board " + posX + ", " + posY);
+            //System.out.println("select board " + posX + ", " + posY);
     }
     
     private void moveRolledDie(Die selectedDie, int posX, int posY, int selectedPosX) {
@@ -415,7 +416,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBoardDie = null;
             selectedRolledDie = null;
             
-            System.out.println("move rolled " + selectedPosX + "vers " + posX + ", " + posY);
+            //System.out.println("move rolled " + selectedPosX + "vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -427,7 +428,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBoardDie = null;
             selectedRolledDie = null;
             
-            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX + ", " + posY);
+            //System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -439,7 +440,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBoardDie = null;
             selectedRolledDie = null;
             
-            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX);
+            //System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -471,6 +472,12 @@ public class MainView extends JFrame implements Observer, ActionListener
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public void updateScore(int score) {
+        //System.out.println("score" + score);
+        scoreLabel.setText("                 Score : " + score);
+        progressBarScore.setValue(score);
     }
     
     private Image getDieImage(Die die) throws IOException {
