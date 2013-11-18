@@ -149,6 +149,8 @@ public class CombinationTest {
             }
             
             if(color == combination[i].getColor()) {
+                if(valueBis == combination[i].getValue())
+                    pairNumber1[1] = combination[i];
                 if(value != combination[i].getValue() && pairNumber1[1] == null) { 
                     valueBis = combination[i].getValue();
                     pairNumber1[1] = combination[i];
@@ -174,7 +176,7 @@ public class CombinationTest {
                 i = 3;
         }while(i < 3);
         
-        return pairNumber1[1] != null && pairNumber2[1] != null;
+        return pairNumber1[1] != null && pairNumber2[1] != null && pairNumber1[0] != null && pairNumber2[0] != null;
     }
     
     public boolean testSameColor(Die[] combination) {

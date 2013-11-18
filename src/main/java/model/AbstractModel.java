@@ -39,9 +39,15 @@ public abstract class AbstractModel implements Observable {
         }
     }
     
-    public void notifyScoreObserver(int score) {
+    public void notifyScoreObserver(Player player) {
         for(Observer obs : listObserver) {
-             obs.updateScore(score);
+             obs.updateScore(player);
+        }
+    }
+    
+    public void notifyJokerObserver(Player player) {
+        for(Observer obs : listObserver) {
+             obs.updateBombJoker(player);
         }
     }
 }

@@ -51,7 +51,7 @@ public class Game extends AbstractModel{
             board.rollDice();
         }
         
-        notifyScoreObserver(player.getScore());
+        notifyScoreObserver(player);
         notifyBoardObserver(board);
     }
 
@@ -66,7 +66,7 @@ public class Game extends AbstractModel{
     public void moveRolledDie(Die die, int posX, int posY, int selectedPosX) {
         board.getBoardDie(posX, posY).setColor(die.getColor());
         board.getBoardDie(posX, posY).setValue(die.getValue());
-        board.setRolledDie(new Die(0, 0, true), selectedPosX);
+        board.setRolledDie(new Die(0, 0, false), selectedPosX);
         board.setUnlockedPlaces(board.getUnlockedPlaces() - 1);
         
         //On met à jour 
@@ -75,7 +75,7 @@ public class Game extends AbstractModel{
     
     public void moveBoardDie(Die die, int posX, int posY, int selectedPosX, int selectedPosY) {
         board.setBoardDie(die, posX, posY);
-        board.setBoardDie(new Die(0, 0, true), selectedPosX, selectedPosY);
+        board.setBoardDie(new Die(0, 0, false), selectedPosX, selectedPosY);
         
         //On met à jour 
         notifyBoardObserver(board);
@@ -83,7 +83,7 @@ public class Game extends AbstractModel{
     
     public void moveBoardDie(Die die, int posX, int selectedPosX, int selectedPosY) {
         board.setRolledDie(die, posX);
-        board.setBoardDie(new Die(0, 0, true), selectedPosX, selectedPosY);
+        board.setBoardDie(new Die(0, 0, false), selectedPosX, selectedPosY);
         board.setUnlockedPlaces(board.getUnlockedPlaces() + 1);
         
         //On met à jour 

@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import model.dice.Die;
 import model.dice.DieTypes;
+import model.player.Player;
 import observer.Observer;
 
 /**classe qui met en place la page d'acceuil*/
@@ -45,10 +46,13 @@ public class MainView extends JFrame implements Observer, ActionListener
     private JPanel startPagePanel;
     private JButton[][] jButtonDiceBoard;
     private JButton[] jButtonRolledDice;
+    private JButton[] jButtonBombJoker;
+    private JButton[] jButtonRollJoker;
     private JButton rollButton;
     private JLabel imageMainView;
     private Die selectedRolledDie;
     private Die selectedBoardDie;
+    private Die selectedBombJoker;
     private int selectedPosX;
     private int selectedPosY;
     private JProgressBar progressBarScore;
@@ -70,7 +74,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     
     private void buildFrame() {
         //On donne une taille � notre fen�tre
-        this.setSize(340,360);
+        this.setSize(340,400);
         //On centre la fen�tre sur l'�cran
         this.setLocationRelativeTo(null);
         //On interdit la redimensionnement de la fen�tre
@@ -160,6 +164,8 @@ public class MainView extends JFrame implements Observer, ActionListener
         
         jButtonDiceBoard = new JButton[4][4];
         jButtonRolledDice = new JButton[4];
+        jButtonBombJoker = new JButton[2];
+        jButtonRollJoker = new JButton[2];
         
         JPanel dicePanel = new JPanel();
         dicePanel.setLayout(new BoxLayout(dicePanel, BoxLayout.X_AXIS));
@@ -224,7 +230,8 @@ public class MainView extends JFrame implements Observer, ActionListener
         scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         scorePanel.setBackground(Color.WHITE); 
         
-        scoreLabel = new JLabel("                 Score : " + 0);
+        scoreLabel = new JLabel("Score : " + 0);
+        scorePanel.add(Box.createHorizontalStrut(60));
         scorePanel.add(scoreLabel);
         scorePanel.add(Box.createVerticalStrut(5));
         
@@ -235,10 +242,36 @@ public class MainView extends JFrame implements Observer, ActionListener
         
         topPanel.add(scorePanel);
         
+        JPanel jokerPanel = new JPanel();
+        jokerPanel.setLayout(new BoxLayout(jokerPanel, BoxLayout.X_AXIS));
+        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        jokerPanel.setBackground(Color.WHITE); 
+        
+        for(int i = 0; i < 2; i++) {
+            jButtonBombJoker[i] = new JButton("");
+            jButtonBombJoker[i].setActionCommand("bombJokerButton" + i);
+            jButtonBombJoker[i].addActionListener(this);
+            jButtonBombJoker[i].setMaximumSize(new Dimension(50,50));
+            jButtonBombJoker[i].setMinimumSize(new Dimension(50,50));
+            jButtonBombJoker[i].setPreferredSize(new Dimension(50,50));
+            
+            jButtonRollJoker[i] = new JButton("");
+            jButtonRollJoker[i].setActionCommand("rollJokerButton" + i);
+            jButtonRollJoker[i].addActionListener(this);
+            jButtonRollJoker[i].setMaximumSize(new Dimension(50,50));
+            jButtonRollJoker[i].setMinimumSize(new Dimension(50,50));
+            jButtonRollJoker[i].setPreferredSize(new Dimension(50,50));
+            
+            jokerPanel.add(jButtonBombJoker[i]);
+            jokerPanel.add(jButtonRollJoker[i]);
+        }
+        
         boardPanel.add(Box.createVerticalStrut(10));
         boardPanel.add(topPanel);
         boardPanel.add(Box.createVerticalStrut(10));
         boardPanel.add(dicePanel);
+        boardPanel.add(Box.createVerticalStrut(10));
+        boardPanel.add(jokerPanel);
         boardFlowPanel.add(boardPanel);
         
         return boardFlowPanel;
@@ -365,10 +398,30 @@ public class MainView extends JFrame implements Observer, ActionListener
             else if(e.getActionCommand().equals("button33")) {
                 this.selectOrMoveDie(3, 3);
             }
+            else if(e.getActionCommand().equals("bombJokerbutton0")) {
+                this.selectOrMoveBombJoker(0);
+            }
+            else if(e.getActionCommand().equals("bombJokerButton1")) {
+                this.selectOrMoveBombJoker(1);
+            }
+            else if(e.getActionCommand().equals("rollJokerButton0")) {
+                //this.selectOrMoveDie(3, 3);
+            }
+            else if(e.getActionCommand().equals("rollJokerButton1")) {
+                //this.selectOrMoveDie(3, 3);
+            }
             else if((JButton)e.getSource() == rollButton) {
                 controler.makeTurn();
             }
         }
+    }
+    
+    private void selectOrMoveBombJoker(int posX) {
+        if(!(controler.selectBombJoker(posX).getValue() == 0) && !(controler.selectBombJoker(posX).getColor() == 0)) {
+            this.selectBombJoker(posX);
+        }
+        else if(selectedBombJoker != null)
+            this.moveBombJoker(selectedBombJoker, posX, selectedPosX, selectedPosY);
     }
    
     private void selectOrMoveDie(int posX, int posY) {
@@ -402,12 +455,19 @@ public class MainView extends JFrame implements Observer, ActionListener
     }
     
     private void selectBoardDie(int posX, int posY) {
-            selectedRolledDie = controler.selectRolledDie(posX);
             selectedBoardDie = controler.selectBoardDie(posX, posY);
             selectedRolledDie = null;
             selectedPosX = posX;
             selectedPosY = posY;
             System.out.println("select board " + posX + ", " + posY);
+    }
+    
+    private void selectBombJoker(int posX) {
+            selectedBoardDie = null;
+            selectedRolledDie = null;
+            selectedPosX = posX;
+            selectedPosY = 4;
+            System.out.println("select bomb " + posX);
     }
     
     private void moveRolledDie(Die selectedDie, int posX, int posY, int selectedPosX) {
@@ -474,57 +534,147 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
-    public void updateScore(int score) {
-        //System.out.println("score" + score);
-        scoreLabel.setText("                 Score : " + score);
-        progressBarScore.setValue(score);
+    public void updateBombJoker(Player player) {
+        Die[] bombJoker = player.getBombJoker();
+        
+        for(int i = 0; i < 2; i++) {
+            try {
+                jButtonBombJoker[i].setIcon(new ImageIcon(this.getDieImage(bombJoker[i])));
+            } 
+            catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void updateScore(Player player) {
+        if(player.getScore() >= player.getJokerScore(player.getActualJokerScore()) 
+        && player.getJokerScore(player.getActualJokerScore()) < player.getJokerScore(3)) {
+            player.setActualJokerScore(player.getActualJokerScore() + 1);
+            if(player.getNbCleanRollJoker() > 0)
+                if(player.getCleanRollJoker(0)) 
+                    player.setCleanRollJoker(true, 0);
+                else if(player.getCleanRollJoker(1)) 
+                    player.setCleanRollJoker(true, 1);
+        }
+        scoreLabel.setText("Score : " + player.getScore());
+        
+        if(player.getScore() >= 2500) {
+            /*progressBarScore.setValue(
+                (int)((player.getScore() 
+                - ((int)(player.getScore()/1000) - 1)*1000 
+                - player.getJokerScore(player.getActualJokerScore())))*100/
+                (player.getJokerScore(player.getActualJokerScore()) 
+                - player.getJokerScore(player.getActualJokerScore() - 1) 
+                + ((int)(player.getScore()/1000) - 1)*1000));*/
+            
+            progressBarScore.setValue((int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore() - 1)))*100/(
+            player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1)));
+            
+            System.out.println(((int)(player.getScore()/1000) - 1)*1000 + "\n numerateur : " + (int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore())))*100);
+            System.out.println("denominateur : " + (player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1) + ((int)(player.getScore()/1000) - 1)*1000));
+            System.out.println("score % : " + (int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore())))*100/
+            (player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1) + ((int)(player.getScore()/1000) - 1)*1000));
+        }
+        else if(player.getJokerScore(player.getActualJokerScore()) > 250) {
+            progressBarScore.setValue((int)((player.getScore() - player.getJokerScore(player.getActualJokerScore() - 1)))*100/(
+            player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1)));
+            //System.out.println("score % : " + (int)((player.getScore() - player.getJokerScore(player.getActualJokerScore() - 1)))*100/
+            //player.getJokerScore(player.getActualJokerScore()));
+        }
+        else
+            progressBarScore.setValue((int)(player.getScore()*100/player.getJokerScore(player.getActualJokerScore())));
     }
     
     private Image getDieImage(Die die) throws IOException {
-    Image img = null;
-            
-        if(die.getColor() == DieTypes.Color.BLUE.getInt()) {
-            if(die.getValue() == 1)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 1.jpg"));
-            else if(die.getValue() == 2)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 2.jpg"));
-            else if(die.getValue() == 3)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 3.jpg"));
-            else if(die.getValue() == 4)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 4.jpg"));
+        Image img = null;
+        
+        if(!die.getLocked()) {
+            if(die.getColor() == DieTypes.Color.BLUE.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.GREEN.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.RED.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.YELLOW.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 4.jpg"));
+            }
+            else
+                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/Empty Die.jpg"));
         }
-        else if(die.getColor() == DieTypes.Color.GREEN.getInt()) {
-            if(die.getValue() == 1)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 1.jpg"));
-            else if(die.getValue() == 2)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 2.jpg"));
-            else if(die.getValue() == 3)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 3.jpg"));
-            else if(die.getValue() == 4)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Die 4.jpg"));
+        else {
+            if(die.getColor() == DieTypes.Color.BLUE.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Locked Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Locked Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Locked Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/blue/Blue Locked Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.GREEN.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Locked Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Locked Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Locked Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/green/Green Locked Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.RED.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Locked Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Locked Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Locked Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Locked Die 4.jpg"));
+            }
+            else if(die.getColor() == DieTypes.Color.YELLOW.getInt()) {
+                if(die.getValue() == 1)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Locked Die 1.jpg"));
+                else if(die.getValue() == 2)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Locked Die 2.jpg"));
+                else if(die.getValue() == 3)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Locked Die 3.jpg"));
+                else if(die.getValue() == 4)
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Locked Die 4.jpg"));
+            }
         }
-        else if(die.getColor() == DieTypes.Color.RED.getInt()) {
-            if(die.getValue() == 1)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 1.jpg"));
-            else if(die.getValue() == 2)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 2.jpg"));
-            else if(die.getValue() == 3)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 3.jpg"));
-            else if(die.getValue() == 4)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/red/Red Die 4.jpg"));
-        }
-        else if(die.getColor() == DieTypes.Color.YELLOW.getInt()) {
-            if(die.getValue() == 1)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 1.jpg"));
-            else if(die.getValue() == 2)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 2.jpg"));
-            else if(die.getValue() == 3)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 3.jpg"));
-            else if(die.getValue() == 4)
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 4.jpg"));
-        }
-        else
-            img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/Empty Die.jpg"));
         
         return img;
     }
