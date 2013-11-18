@@ -337,14 +337,35 @@ public class CaseTest {
         else if(combinationTest.testTwoPair(combination)) {
             System.out.println("TwoPair : 60");
             player.setScore(player.getScore() + 60); 
+            if(player.getNbBombJoker() < 2) {
+                player.setNbBombJoker(player.getNbBombJoker() + 1);
+                if(player.getBombJokerDie(0).getValue() != 5)
+                    player.setBombJokerDie(new Die(5,5, false), 0);
+                else
+                    player.setBombJokerDie(new Die(5,5, false), 1);
+            }
         }
         else if(combinationTest.testSameColor(combination)) {
             System.out.println("SameColor : 40");
             player.setScore(player.getScore() + 40);
+            if(player.getNbBombJoker() < 2) {
+                player.setNbBombJoker(player.getNbBombJoker() + 1);
+                if(player.getBombJokerDie(0).getValue() != 5)
+                    player.setBombJokerDie(new Die(5,5, false), 0);
+                else
+                    player.setBombJokerDie(new Die(5,5, false), 1);
+            }
         }
         else if(combinationTest.testSameNumber(combination)) {
             System.out.println("SameNumber : 40");
             player.setScore(player.getScore() + 40);
+            if(player.getNbBombJoker() < 2) {
+                player.setNbBombJoker(player.getNbBombJoker() + 1);
+                if(player.getBombJokerDie(0).getValue() != 5)
+                    player.setBombJokerDie(new Die(5,5, false), 0);
+                else
+                    player.setBombJokerDie(new Die(5,5, false), 1);
+            }
         }
         else if(combinationTest.testPairColorPairNumber(combination)) {
             System.out.println("PairColorPairNumber : 20");

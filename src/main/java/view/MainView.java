@@ -66,6 +66,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         selectedPosY = 4;
         selectedRolledDie = null;
         selectedBoardDie = null;
+        selectedBombJoker = null;
         this.buildFrame();
         this.buildMenuBar();
         
@@ -254,16 +255,21 @@ public class MainView extends JFrame implements Observer, ActionListener
             jButtonBombJoker[i].setMaximumSize(new Dimension(50,50));
             jButtonBombJoker[i].setMinimumSize(new Dimension(50,50));
             jButtonBombJoker[i].setPreferredSize(new Dimension(50,50));
-            
+
+            jokerPanel.add(jButtonBombJoker[i]);
+            jokerPanel.add(Box.createHorizontalStrut(5));
+        }
+        
+        for(int i = 0; i < 2; i++) {
             jButtonRollJoker[i] = new JButton("");
             jButtonRollJoker[i].setActionCommand("rollJokerButton" + i);
             jButtonRollJoker[i].addActionListener(this);
             jButtonRollJoker[i].setMaximumSize(new Dimension(50,50));
             jButtonRollJoker[i].setMinimumSize(new Dimension(50,50));
             jButtonRollJoker[i].setPreferredSize(new Dimension(50,50));
-            
-            jokerPanel.add(jButtonBombJoker[i]);
+
             jokerPanel.add(jButtonRollJoker[i]);
+            jokerPanel.add(Box.createHorizontalStrut(5));
         }
         
         boardPanel.add(Box.createVerticalStrut(10));
@@ -398,7 +404,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             else if(e.getActionCommand().equals("button33")) {
                 this.selectOrMoveDie(3, 3);
             }
-            else if(e.getActionCommand().equals("bombJokerbutton0")) {
+            else if(e.getActionCommand().equals("bombJokerButton0")) {
                 this.selectOrMoveBombJoker(0);
             }
             else if(e.getActionCommand().equals("bombJokerButton1")) {
@@ -420,14 +426,15 @@ public class MainView extends JFrame implements Observer, ActionListener
         if(!(controler.selectBombJoker(posX).getValue() == 0) && !(controler.selectBombJoker(posX).getColor() == 0)) {
             this.selectBombJoker(posX);
         }
-        else if(selectedBombJoker != null)
-            this.moveBombJoker(selectedBombJoker, posX, selectedPosX, selectedPosY);
     }
    
     private void selectOrMoveDie(int posX, int posY) {
+        
         if(!(controler.selectBoardDie(posX, posY).getValue() == 0) && !(controler.selectBoardDie(posX, posY).getColor() == 0) && !controler.selectBoardDie(posX, posY).getLocked()) {   
             this.selectBoardDie(posX, posY);
         }
+        else if(selectedBombJoker != null)
+            this.moveBombJoker(posX, posY, selectedPosX);
         else if(selectedPosY == 4 && selectedRolledDie != null) {
             this.moveRolledDie(selectedRolledDie, posX, posY, selectedPosX);
         }
@@ -448,6 +455,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         if(!(controler.selectRolledDie(posX).getValue() == 0) && !(controler.selectRolledDie(posX).getColor() == 0)) {
             selectedRolledDie = controler.selectRolledDie(posX);
             selectedBoardDie = null;
+            selectedBombJoker = null;
             selectedPosX = posX;
             selectedPosY = 4;
             System.out.println("select rolled " + posX);
@@ -457,6 +465,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private void selectBoardDie(int posX, int posY) {
             selectedBoardDie = controler.selectBoardDie(posX, posY);
             selectedRolledDie = null;
+            selectedBombJoker = null;
             selectedPosX = posX;
             selectedPosY = posY;
             System.out.println("select board " + posX + ", " + posY);
@@ -465,6 +474,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private void selectBombJoker(int posX) {
             selectedBoardDie = null;
             selectedRolledDie = null;
+            selectedBombJoker = controler.selectBombJoker(posX);
             selectedPosX = posX;
             selectedPosY = 4;
             System.out.println("select bomb " + posX);
@@ -475,8 +485,22 @@ public class MainView extends JFrame implements Observer, ActionListener
             controler.moveRolledDie(selectedDie, posX, posY, selectedPosX);
             selectedBoardDie = null;
             selectedRolledDie = null;
+            selectedBombJoker = null;
             
             System.out.println("move rolled " + selectedPosX + "vers " + posX + ", " + posY);
+            selectedPosX = 4;
+            selectedPosY = 4;
+        }
+    }
+    
+    private void moveBombJoker(int posX, int posY, int selectedPosX) {
+        if(controler.selectBoardDie(posX, posY).getLocked() == true) {
+            controler.moveBombJoker(new Die(0, 0, false), posX, posY, selectedPosX);
+            selectedBoardDie = null;
+            selectedRolledDie = null;
+            selectedBombJoker = null;
+            
+            System.out.println("move bomb " + selectedPosX + "vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -487,6 +511,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             controler.moveBoardDie(selectedDie, posX, posY, selectedPosX, selectedPosY);
             selectedBoardDie = null;
             selectedRolledDie = null;
+            selectedBombJoker = null;
             
             System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX + ", " + posY);
             selectedPosX = 4;
@@ -499,6 +524,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             controler.moveBoardDie(selectedDie, posX, selectedPosX, selectedPosY);
             selectedBoardDie = null;
             selectedRolledDie = null;
+            selectedBombJoker = null;
             
             System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX);
             selectedPosX = 4;
@@ -629,6 +655,9 @@ public class MainView extends JFrame implements Observer, ActionListener
                     img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 3.jpg"));
                 else if(die.getValue() == 4)
                     img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 4.jpg"));
+            }
+            else if(die.getColor() == 5) {
+                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/BombDie.jpg"));
             }
             else
                 img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/Empty Die.jpg"));

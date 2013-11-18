@@ -27,6 +27,7 @@ public class Game extends AbstractModel{
         board.rollDice();
         
         notifyBoardObserver(board);
+        notifyJokerObserver(player);
     }
     
     public void makeTurn() {
@@ -41,6 +42,7 @@ public class Game extends AbstractModel{
         caseTest.findCombinations(board, player);
         System.out.println();
         
+        //roll dice or not
         do {
             i++;
             if(board.getRolledDie(i).getColor() == 0)
@@ -53,6 +55,7 @@ public class Game extends AbstractModel{
         
         notifyScoreObserver(player);
         notifyBoardObserver(board);
+        notifyJokerObserver(player);
     }
 
     public Die selectBoardDie(int posX, int posY) {
@@ -63,6 +66,10 @@ public class Game extends AbstractModel{
         return new Die(board.getRolledDie(posX).getValue(), board.getRolledDie(posX).getColor(), board.getRolledDie(posX).getLocked());
     }
     
+    public Die selectBombJoker(int posX) {
+        return new Die(player.getBombJokerDie(posX).getValue(), player.getBombJokerDie(posX).getColor(), player.getBombJokerDie(posX).getLocked());
+    }
+    
     public void moveRolledDie(Die die, int posX, int posY, int selectedPosX) {
         board.getBoardDie(posX, posY).setColor(die.getColor());
         board.getBoardDie(posX, posY).setValue(die.getValue());
@@ -71,6 +78,18 @@ public class Game extends AbstractModel{
         
         //On met à jour 
         notifyBoardObserver(board);
+        notifyJokerObserver(player);
+    }
+    
+    public void moveBombJoker(Die die, int posX, int posY, int selectedPosX) {
+        board.setBoardDie(die, posX, posY);
+        player.setBombJokerDie(new Die(0, 0, false), selectedPosX);
+        board.setUnlockedPlaces(board.getUnlockedPlaces() + 1);
+        player.setNbBombJoker(player.getNbBombJoker() - 1);
+        
+        //On met à jour 
+        notifyBoardObserver(board);
+        notifyJokerObserver(player);
     }
     
     public void moveBoardDie(Die die, int posX, int posY, int selectedPosX, int selectedPosY) {

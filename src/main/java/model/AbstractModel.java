@@ -18,11 +18,15 @@ public abstract class AbstractModel implements Observable {
     
     public abstract Die selectRolledDie(int posX);
     
+    public abstract Die selectBombJoker(int posX);
+    
     public abstract void moveBoardDie(Die dice, int posX, int posY, int selectedPosX, int selectedPosY);
     
     public abstract void moveBoardDie(Die dice, int posX, int selectedPosX, int selectedPosY);
     
     public abstract void moveRolledDie(Die die, int posX, int posY, int selectedPosX);
+    
+    public abstract void moveBombJoker(Die die, int posX, int posY, int selectedPosX);
     
     public void addObserver(Observer obs) {
         this.listObserver.add(obs);

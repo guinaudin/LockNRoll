@@ -11,12 +11,14 @@ public class Player {
     private Die[] bombJoker;
     private int actualJokerScore;
     private int nbCleanRollJoker;
+    private int nbBombJoker;
 
     public Player() {
         score = 0;
         nbCleanRollJoker = 0;
+        nbBombJoker = 0;
         cleanRollJoker = new boolean[] {false, false};
-        bombJoker = new Die[] {null, null};
+        bombJoker = new Die[] {new Die(0, 0, false), new Die(0, 0, false)};
         cleanRollJokerActivated = new boolean[] {false, false};
         name = "";
         actualJokerScore = 0;
@@ -50,7 +52,7 @@ public class Player {
     public void setCleanRollJoker(boolean cleanRollJoker, int position) {
         this.cleanRollJoker[position] = cleanRollJoker;
     }
-    
+   
     public int getNbCleanRollJoker() {
         return nbCleanRollJoker;
     }
@@ -75,7 +77,23 @@ public class Player {
         return bombJoker;
     }
     
+    public Die getBombJokerDie(int posX) {
+        return bombJoker[posX];
+    }
+    
+    public void setBombJokerDie(Die die, int posX) {
+        bombJoker[posX] = die;
+    }
+    
     public int getJokerScore(int jokerScore) {
         return jokerScoreArray[jokerScore];
+    }
+    
+    public int getNbBombJoker() {
+        return nbBombJoker;
+    }
+    
+    public void setNbBombJoker(int nbBombJoker) {
+        this.nbBombJoker = nbBombJoker;
     }
 }

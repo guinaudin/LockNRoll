@@ -18,6 +18,10 @@ public abstract class AbstractControler {
         return abstractModel.selectRolledDie(posX);
     }
     
+    public Die selectBombJoker(int posX) {
+        return abstractModel.selectBombJoker(posX);
+    }
+    
     public Die selectBoardDie(int posX, int posY) {
         return abstractModel.selectBoardDie(posX, posY);
     }
@@ -32,6 +36,10 @@ public abstract class AbstractControler {
     
     public void moveRolledDie(Die die, int posX, int posY, int selectedPosX) {
         abstractModel.moveRolledDie(die, posX, posY, selectedPosX);
+    }
+    
+    public void moveBombJoker(Die die, int posX, int posY, int selectedPosX) {
+        abstractModel.moveBombJoker(die, posX, posY, selectedPosX);
     }
     
     public void makeTurn() {
