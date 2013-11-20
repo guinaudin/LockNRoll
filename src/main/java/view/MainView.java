@@ -13,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -33,9 +35,6 @@ public class MainView extends JFrame implements Observer, ActionListener
     private JMenuItem newGameMenuItem;
     private JMenuItem leaderBoardMenuItem;
     private JMenuItem quitMenuItem;
-    private JMenuItem onMenuItem;
-    private JMenuItem offMenuItem;
-    private JMenuItem chooseSoundMenuItem;
     private JMenu miscellaneousMenu;
     private JMenuItem websiteMenuItem;
     private JMenuItem rulesMenuItem;
@@ -114,26 +113,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         quitMenuItem = new JMenuItem("Quit");
         quitMenuItem.addActionListener(this);
         gameMenu.add(quitMenuItem);
-        
-        //creation de la seconde icone de la menuBar
-        JMenu optionMenu = new JMenu("Options");
-        menuBar.add(optionMenu);
-        
-        //creation du premier element, un sous-menu
-        JMenu soundSubMenu = new JMenu("Sounds");
-        onMenuItem = new JMenuItem("On");
-        onMenuItem.addActionListener(this);
-        soundSubMenu.add(onMenuItem);
-        offMenuItem = new JMenuItem("Off");
-        offMenuItem.addActionListener(this);
-        soundSubMenu.add(offMenuItem);       
-        optionMenu.add(soundSubMenu);
-        
-        //creation du second element
-        chooseSoundMenuItem = new JMenuItem("Choose Sound");
-        chooseSoundMenuItem.addActionListener(this);
-        optionMenu.add(chooseSoundMenuItem);
-        
+
         //creation de la troisieme icone de la menuBar
         miscellaneousMenu = new JMenu("Miscellaneous");
         menuBar.add(miscellaneousMenu);
@@ -323,17 +303,22 @@ public class MainView extends JFrame implements Observer, ActionListener
             //si l'utilisateur clic sur "rules"
             else if(source == rulesMenuItem)
             {
-                try 
-                {
-                    if (Desktop.isDesktopSupported())     
-                    {
-                        //on ouvre le pdf sur le bureau
-                        Desktop.getDesktop().open(new File(getClass().getResource("LockNRoll.pdf").getPath()));
-                    }
-                } 
-                catch (IOException ex) 
-                {
-                    System.out.println(ex.getMessage());
+                InputStream pdf = getClass().getClassLoader().getResourceAsStream("pdf/LockNRoll.pdf");
+     
+                try {
+                    File pdfCree = new File("newLockNRoll.pdf");
+                    // Extraction du PDF qui se situe dans l'archive
+                    FileOutputStream fos = new FileOutputStream(pdfCree);
+                    while (pdf.available() > 0) {
+                          fos.write(pdf.read());
+                    }   // while (pdfInJar.available() > 0)
+                    fos.close();
+                    // Ouverture du PDF
+                    Desktop.getDesktop().open(pdfCree);
+                }
+
+                catch (IOException err) {
+                    System.out.println("erreur : " + err);
                 }
             }
             else if(source == leaderBoardMenuItem)
@@ -561,6 +546,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
+    @Override
     public void updateRolledDice(Board board) {
         Die[] rolledDice = board.getRolledDice();
         
@@ -574,6 +560,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
+    @Override
     public void updateCleanRollJoker(Player player) {
         try {
             if(player.getCleanRollJokerActivated(0))
@@ -596,6 +583,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     }
 
     
+    @Override
     public void updateBombJoker(Player player) {
         Die[] bombJoker = player.getBombJoker();
         
@@ -612,6 +600,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
+    @Override
     public void updateScore(Player player) {
         if(player.getScore() >= player.getJokerScore(player.getActualJokerScore()) 
         && player.getJokerScore(player.getActualJokerScore()) < player.getJokerScore(3)) {

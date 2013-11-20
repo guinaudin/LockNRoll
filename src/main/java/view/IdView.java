@@ -10,7 +10,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import model.player.LeaderBoard;
 import model.player.Player;
 
 /**classe qui demande à l'utilisateur les elements nescessaire pour jouer online ou offline*/
@@ -98,21 +101,25 @@ public class IdView extends JFrame implements KeyListener
             //on recupere le texte dans le JTextField pour le nom du joueur
             player.setName(playerName);
             
+            LeaderBoard leaderBoard = new LeaderBoard(player.getName(), player.getScore());
+            
             try {
-                //FileInputStream fichierOis = new FileInputStream(getClass().getClassLoader().getResource("classement/leaderBoard.ser").getPath());
-                //ObjectInputStream ois = new ObjectInputStream(fichierOis);
-                //Player tempPlayer = (Player)ois.readObject();
+                FileInputStream fichierOis = new FileInputStream("leaderBoard.ser");
+                ObjectInputStream ois = new ObjectInputStream(fichierOis);
+                LeaderBoard tempLeaderBoard = (LeaderBoard)ois.readObject();
                 
-                //if(tempPlayer.getScore() <= player.getScore()) {
-                    FileOutputStream fichierOos = new FileOutputStream(getClass().getClassLoader().getResource("leaderboard/leaderboard.ser").getPath());
+                if(leaderBoard.getScore() <= player.getScore()) {
+                    FileOutputStream fichierOos = new FileOutputStream("leaderboard.ser");
                     ObjectOutputStream oos = new ObjectOutputStream(fichierOos);
-                    oos.writeObject(player);
+                    oos.writeObject(leaderBoard);
                     oos.flush();
                     oos.close();
-                //}
+                }
             }
             catch (java.io.IOException err) {
                 err.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
             }
             /*catch (ClassNotFoundException err) {
                 err.printStackTrace();

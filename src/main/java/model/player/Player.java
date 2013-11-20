@@ -1,9 +1,8 @@
 package model.player;
 
-import java.io.Serializable;
 import model.dice.Die;
 
-public class Player implements Serializable {
+public class Player {
     private String name;
     private int score;
     private boolean[] cleanRollJokerActivated;
