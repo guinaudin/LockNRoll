@@ -1,6 +1,7 @@
 package model;
 
 import model.dice.Die;
+
 public class CombinationTest {
     private int color;
     private int value;
@@ -229,7 +230,6 @@ public class CombinationTest {
                 /**on verifie le numero suivant*/
                 j++;
             } 
-            //System.out.println("i : " + i + " cpt : " + cpt);
         }while(cpt == i && i < 3);
         
         return cpt == i && i == 3;

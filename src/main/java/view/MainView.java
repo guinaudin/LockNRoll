@@ -463,7 +463,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBombJoker = null;
             selectedPosX = posX;
             selectedPosY = 4;
-            System.out.println("select rolled " + posX);
         }
     }
     
@@ -473,7 +472,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBombJoker = null;
             selectedPosX = posX;
             selectedPosY = posY;
-            System.out.println("select board " + posX + ", " + posY);
     }
     
     private void selectBombJoker(int posX) {
@@ -482,7 +480,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedBombJoker = controler.selectBombJoker(posX);
             selectedPosX = posX;
             selectedPosY = 4;
-            System.out.println("select bomb " + posX);
     }
     
     private void moveRolledDie(Die selectedDie, int posX, int posY, int selectedPosX) {
@@ -492,7 +489,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedRolledDie = null;
             selectedBombJoker = null;
             
-            System.out.println("move rolled " + selectedPosX + "vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -505,7 +501,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedRolledDie = null;
             selectedBombJoker = null;
             
-            System.out.println("move bomb " + selectedPosX + "vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -518,7 +513,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedRolledDie = null;
             selectedBombJoker = null;
             
-            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX + ", " + posY);
             selectedPosX = 4;
             selectedPosY = 4;
         }
@@ -531,7 +525,6 @@ public class MainView extends JFrame implements Observer, ActionListener
             selectedRolledDie = null;
             selectedBombJoker = null;
             
-            System.out.println("move board " + selectedPosX + ", "+ selectedPosY + " vers " + posX);
             selectedPosX = 4;
             selectedPosY = 4;
         }

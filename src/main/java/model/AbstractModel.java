@@ -32,14 +32,17 @@ public abstract class AbstractModel implements Observable {
     
     public abstract boolean activateCleanRollJoker(int posX);
     
+    @Override
     public void addObserver(Observer obs) {
         this.listObserver.add(obs);
     }
 
+    @Override
     public void removeObserver() {
         listObserver = new ArrayList<Observer>();
     }
 
+    @Override
     public void notifyBoardObserver(Board board) {
         for(Observer obs : listObserver) {
              obs.updateBoardDice(board);
@@ -47,12 +50,14 @@ public abstract class AbstractModel implements Observable {
         }
     }
     
+    @Override
     public void notifyScoreObserver(Player player) {
         for(Observer obs : listObserver) {
              obs.updateScore(player);
         }
     }
     
+    @Override
     public void notifyJokerObserver(Player player) {
         for(Observer obs : listObserver) {
              obs.updateBombJoker(player);

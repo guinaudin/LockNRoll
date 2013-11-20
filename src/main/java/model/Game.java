@@ -36,16 +36,13 @@ public class Game extends AbstractModel{
     
     @Override
     public void makeTurn() {
-        System.out.println("roll");
         int cpt = 0;
         int i = -1;
         
         caseTest.findCombinations(board, player);
-        System.out.println();
         board.lockDice();
         
         //victory test
-        System.out.println("places : " + board.getUnlockedPlaces() + "bomb : " + player.getNbBombJoker() + "rolljok : " + player.getNbCleanRollJoker());
         if(board.getUnlockedPlaces() == 0 && player.getNbBombJoker() == 0 && player.getNbCleanRollJoker() == 0) {
             idView = new IdView(player);
         }

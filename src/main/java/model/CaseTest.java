@@ -65,7 +65,6 @@ public class CaseTest {
                 || clearDiagonalDiceBoard[i][j] || clearCornerDiceBoard[i][j] || clearCubeDiceBoard[i][j]) {
                     board.setBoardDie(new Die(0, 0, false), i, j);
                     board.setUnlockedPlaces(board.getUnlockedPlaces()+1);
-                    System.out.println("cleared " + i + ", " + j);
                 }
             }
         }
@@ -97,13 +96,10 @@ public class CaseTest {
                 else
                     j = 4;
                 
-                System.out.println("nblocked" + nbLockedDie);
                 if(combination[3] != null && nbLockedDie < 4) {
-                    System.out.println("line");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
-                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 4; k++) {
                             for(int l = 0; l < 4; l++) {
@@ -146,11 +142,9 @@ public class CaseTest {
                 else
                     j = 4;
                 if(combination[3] != null && nbLockedDie < 4) {
-                    System.out.println("Column");
                     clear = this.calculateScore(combination);
                     
                     if(clear) {
-                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 4; k++) {
                             for(int l = 0; l < 4; l++) {
@@ -192,11 +186,9 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][0] = true;
                 clearDiagonalDiceBoard[1][1] = true;
@@ -221,11 +213,9 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            System.out.println("Diago");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                System.out.println("Clear");
                 //clear the combination on the board
                 clearDiagonalDiceBoard[0][3] = true;
                 clearDiagonalDiceBoard[1][2] = true;
@@ -262,11 +252,9 @@ public class CaseTest {
         }
  
         if(combination[3] != null) {
-            System.out.println("Corner");
             clear = this.calculateScore(combination);
 
             if(clear) {
-                System.out.println("Clear");
                 //clear the combination on the board
                 clearCornerDiceBoard[0][0] = true;
                 clearCornerDiceBoard[0][3] = true;
@@ -304,11 +292,9 @@ public class CaseTest {
                 }
                 
                 if(combination[3] != null) {
-                    System.out.println("Cube");
                     clear = this.calculateScore(combination);
                 
                     if(clear) {
-                        System.out.println("Clear");
                         //Save the combination we have to clear
                         for(int k = 0; k < 3; k++) {
                             for(int l = 0; l < 3; l++) {
@@ -330,38 +316,26 @@ public class CaseTest {
     private boolean calculateScore(Die[] combination) {
         boolean clear = false;
         
-        /*for(int k = 0; k < Constant.SIZE; k++) {
-            System.out.print("color : " + combination[k].getColor());
-            System.out.print(", value : " + combination[k].getValue());
-            System.out.print(", locked : " + combination[k].getLocked());
-            System.out.println("/n");
-        }*/
-        
         //Combination cleared
         if(combinationTest.testSameColorSameNumber(combination)) {
-            System.out.println("SameColorSameNumber : 400");
             player.setScore(player.getScore() + 400);
             clear = true;
         }
         else if(combinationTest.testSameColorEachNumber(combination)) {
-            System.out.println("SameColorEachNumber : 200");
             player.setScore(player.getScore() + 200);
             clear = true;
         }
         else if(combinationTest.testEachColorSameNumber(combination)) {
-            System.out.println("EachColorSameNumber : 200");
             player.setScore(player.getScore() + 200);
             clear = true;
         }
         else if(combinationTest.testEachColorEachNumber(combination)) {
-            System.out.println("EachColorEachNumber : 100");
             player.setScore(player.getScore() + 100);
             clear = true;
         }
         
         //Combination not cleared
         else if(combinationTest.testTwoPair(combination)) {
-            System.out.println("TwoPair : 60");
             player.setScore(player.getScore() + 60); 
             if(player.getNbBombJoker() < 2) {
                 player.setNbBombJoker(player.getNbBombJoker() + 1);
@@ -372,7 +346,6 @@ public class CaseTest {
             }
         }
         else if(combinationTest.testSameColor(combination)) {
-            System.out.println("SameColor : 40");
             player.setScore(player.getScore() + 40);
             if(player.getNbBombJoker() < 2) {
                 player.setNbBombJoker(player.getNbBombJoker() + 1);
@@ -383,7 +356,6 @@ public class CaseTest {
             }
         }
         else if(combinationTest.testSameNumber(combination)) {
-            System.out.println("SameNumber : 40");
             player.setScore(player.getScore() + 40);
             if(player.getNbBombJoker() < 2) {
                 player.setNbBombJoker(player.getNbBombJoker() + 1);
@@ -394,23 +366,18 @@ public class CaseTest {
             }
         }
         else if(combinationTest.testPairColorPairNumber(combination)) {
-            System.out.println("PairColorPairNumber : 20");
             player.setScore(player.getScore() + 20);
         }
         else if(combinationTest.testEachColor(combination)) {
-            System.out.println("EachColor : 10");
             player.setScore(player.getScore() + 10);
         }
         else if(combinationTest.testEachNumber(combination)) {
-            System.out.println("EachNumber : 10");
             player.setScore(player.getScore() + 10);
         }
         else if(combinationTest.testPairColor(combination)) {
-            System.out.println("PairColor : 5");
             player.setScore(player.getScore() + 5);
         }
         else if(combinationTest.testPairNumber(combination)) {
-            System.out.println("PairNumber : 5");
             player.setScore(player.getScore() + 5);
         }
         
