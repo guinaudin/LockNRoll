@@ -309,7 +309,7 @@ public class MainView extends JFrame implements Observer, ActionListener
                 InputStream pdf = getClass().getClassLoader().getResourceAsStream("pdf/LockNRoll.pdf");
      
                 try {
-                    File pdfCree = new File("newLockNRoll.pdf");
+                    File pdfCree = new File("LockNRoll rules.pdf");
                     // Extraction du PDF qui se situe dans l'archive
                     FileOutputStream fos = new FileOutputStream(pdfCree);
                     while (pdf.available() > 0) {
