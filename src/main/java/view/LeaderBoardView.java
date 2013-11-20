@@ -1,27 +1,19 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import model.player.LeaderBoard;
-import model.player.Player;
 
 /**classe affichant la fenetre de classement des joueurs en fonction du cash et du green*/
 public class LeaderBoardView extends JFrame
 {
     //declaration des attributs
-    private JPanel jps;
     private JLabel label;
     
     /**consructeur*/
@@ -44,26 +36,20 @@ public class LeaderBoardView extends JFrame
         this.setResizable(true);
         this.setVisible(true);
         
-        //creation d'un objet JPanel
-        JPanel panel = new JPanel();
-        //on utilise un gridLayout
-        panel.setLayout(new GridLayout(1,0));
-        //on rend le fond blanc
-        panel.setBackground(Color.WHITE);
-        
         //on declare et on cree un nouveau panel
-        JPanel boxPanel1 = new JPanel();
+        JPanel boxPanel = new JPanel();
         //on utilise un BoxLayout sur l'axe des abscisses
-        boxPanel1.setLayout(new BoxLayout(boxPanel1, BoxLayout.X_AXIS));
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
         //on cree du vide tout autours du panel
-        boxPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        boxPanel1.setBackground(Color.WHITE);
-
+        boxPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boxPanel.setBackground(Color.WHITE);
+        
         try {
             FileInputStream fichier = new FileInputStream("leaderboard.ser");
             ObjectInputStream ois = new ObjectInputStream(fichier);
             LeaderBoard leaderBoard = (LeaderBoard)ois.readObject();
             label = new JLabel("<html>Name : " + leaderBoard.getName() + "<br>Score : " + leaderBoard.getScore() + "</html>");
+            ois.close();
         }
         catch (java.io.IOException e) {
             e.printStackTrace();
@@ -73,10 +59,9 @@ public class LeaderBoardView extends JFrame
         }
         
         //on ajoute les differents elements
-        boxPanel1.add(label);
-        panel.add(boxPanel1);
+        boxPanel.add(label);
         //on ajoute le panel principal à la JFrame
-        this.add(panel);  
+        this.add(boxPanel);  
     }
 }
     

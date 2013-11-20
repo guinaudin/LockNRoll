@@ -24,6 +24,7 @@ public class Game extends AbstractModel{
         //board.rollDices();
     }
     
+    @Override
     public void startNewGame() {
         player = new Player();
         board = new Board();
@@ -33,6 +34,7 @@ public class Game extends AbstractModel{
         notifyJokerObserver(player);
     }
     
+    @Override
     public void makeTurn() {
         System.out.println("roll");
         int cpt = 0;
@@ -64,6 +66,7 @@ public class Game extends AbstractModel{
         notifyJokerObserver(player);
     }
     
+    @Override
     public void rollDice() {
         board.rollDice();
         
@@ -82,6 +85,7 @@ public class Game extends AbstractModel{
         notifyJokerObserver(player);
     }
     
+    @Override
     public boolean activateCleanRollJoker(int posX) {
         player.setCleanRollJokerActivated(!player.getCleanRollJokerActivated(posX), posX);
         
@@ -95,18 +99,22 @@ public class Game extends AbstractModel{
         return player.getCleanRollJokerActivated(0) || player.getCleanRollJokerActivated(1);
     }
 
+    @Override
     public Die selectBoardDie(int posX, int posY) {
         return new Die(board.getBoardDie(posX, posY).getValue(), board.getBoardDie(posX, posY).getColor(), board.getBoardDie(posX, posY).getLocked());
     }
     
+    @Override
     public Die selectRolledDie(int posX) {
         return new Die(board.getRolledDie(posX).getValue(), board.getRolledDie(posX).getColor(), board.getRolledDie(posX).getLocked());
     }
     
+    @Override
     public Die selectBombJoker(int posX) {
         return new Die(player.getBombJokerDie(posX).getValue(), player.getBombJokerDie(posX).getColor(), player.getBombJokerDie(posX).getLocked());
     }
     
+    @Override
     public void moveRolledDie(Die die, int posX, int posY, int selectedPosX) {
         board.getBoardDie(posX, posY).setColor(die.getColor());
         board.getBoardDie(posX, posY).setValue(die.getValue());
@@ -118,6 +126,7 @@ public class Game extends AbstractModel{
         notifyJokerObserver(player);
     }
     
+    @Override
     public void moveBombJoker(Die die, int posX, int posY, int selectedPosX) {
         board.setBoardDie(die, posX, posY);
         player.setBombJokerDie(new Die(0, 0, false), selectedPosX);
@@ -129,6 +138,7 @@ public class Game extends AbstractModel{
         notifyJokerObserver(player);
     }
     
+    @Override
     public void moveBoardDie(Die die, int posX, int posY, int selectedPosX, int selectedPosY) {
         board.setBoardDie(die, posX, posY);
         board.setBoardDie(new Die(0, 0, false), selectedPosX, selectedPosY);
@@ -137,6 +147,7 @@ public class Game extends AbstractModel{
         notifyBoardObserver(board);
     }
     
+    @Override
     public void moveBoardDie(Die die, int posX, int selectedPosX, int selectedPosY) {
         board.setRolledDie(die, posX);
         board.setBoardDie(new Die(0, 0, false), selectedPosX, selectedPosY);

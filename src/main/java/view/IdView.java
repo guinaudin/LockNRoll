@@ -6,8 +6,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
@@ -24,6 +28,7 @@ public class IdView extends JFrame implements KeyListener
     
     private String playerName;
     private Player player;
+    private LeaderBoard tempLeaderBoard;
     
     /**constructeur*/
     public IdView(Player player)
@@ -35,8 +40,6 @@ public class IdView extends JFrame implements KeyListener
         playerName = "";
         //appel de la methode iitialisant la fenetre
         build();
-        
-        this.setVisible(true);
     }
     
     /**methode initialisant la fenetre*/
@@ -48,6 +51,7 @@ public class IdView extends JFrame implements KeyListener
         this.setLocationRelativeTo(null);
         //On interdit la redimensionnement de la fenêtre
         this.setResizable(true);
+        this.setVisible(true);
         
         //creation d'un objet JPanel
         JPanel panel = new JPanel();
@@ -104,26 +108,34 @@ public class IdView extends JFrame implements KeyListener
             LeaderBoard leaderBoard = new LeaderBoard(player.getName(), player.getScore());
             
             try {
-                FileInputStream fichierOis = new FileInputStream("leaderBoard.ser");
+                FileInputStream fichierOis = new FileInputStream("leaderboard.ser");
                 ObjectInputStream ois = new ObjectInputStream(fichierOis);
-                LeaderBoard tempLeaderBoard = (LeaderBoard)ois.readObject();
+                tempLeaderBoard = (LeaderBoard)ois.readObject();
+                ois.close();
+            }
+            catch (ClassNotFoundException ex) {
+                Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
+            
+            try {
                 
-                if(leaderBoard.getScore() <= player.getScore()) {
+                if(tempLeaderBoard.getScore() <= player.getScore()) {
                     FileOutputStream fichierOos = new FileOutputStream("leaderboard.ser");
                     ObjectOutputStream oos = new ObjectOutputStream(fichierOos);
                     oos.writeObject(leaderBoard);
                     oos.flush();
                     oos.close();
                 }
-            }
-            catch (java.io.IOException err) {
-                err.printStackTrace();
-            } catch (ClassNotFoundException ex) {
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            /*catch (ClassNotFoundException err) {
-                err.printStackTrace();
-            }*/
 
             //on ferme la fenetre automatiquement
             this.dispose();

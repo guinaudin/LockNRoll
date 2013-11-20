@@ -52,11 +52,13 @@ public class MainView extends JFrame implements Observer, ActionListener
     private Die selectedRolledDie;
     private Die selectedBoardDie;
     private Die selectedBombJoker;
+    private boolean leaderboard;
     private int selectedPosX;
     private int selectedPosY;
     private JProgressBar progressBarScore;
     private JLabel scoreLabel;
     private boolean cleanRollJokerActivated;
+    private LeaderBoardView leaderBoardView;
     
     /**constructeur*/
     public MainView(AbstractControler controler) {
@@ -67,6 +69,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         selectedRolledDie = null;
         selectedBoardDie = null;
         selectedBombJoker = null;
+        leaderboard = false;
         cleanRollJokerActivated = false;
         this.buildFrame();
         this.buildMenuBar();
@@ -323,7 +326,7 @@ public class MainView extends JFrame implements Observer, ActionListener
             }
             else if(source == leaderBoardMenuItem)
             {
-                LeaderBoardView leaderBoardView = new LeaderBoardView();
+                leaderBoardView = new LeaderBoardView();
             }
             //si l'utilisateur clic sur "quitter"
             else if(source == quitMenuItem)
@@ -408,8 +411,10 @@ public class MainView extends JFrame implements Observer, ActionListener
                 cleanRollJokerActivated = this.activateCleanRollJoker(1);
             }
             else if((JButton)e.getSource() == rollButton) {
-                if(!cleanRollJokerActivated)
+                if(!cleanRollJokerActivated) {
                     controler.makeTurn();
+                    cleanRollJokerActivated = false;
+                }
                 else {
                     controler.rollDice();
                     cleanRollJokerActivated = false;
@@ -532,6 +537,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
 
+    @Override
     public void updateBoardDice(Board board) {
         Die[][] diceBoard = board.getDiceBoard();
         for(int i = 0; i < 4; i++) {
@@ -582,7 +588,6 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
 
-    
     @Override
     public void updateBombJoker(Player player) {
         Die[] bombJoker = player.getBombJoker();
@@ -590,7 +595,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         for(int i = 0; i < 2; i++) {
             try {
                 if(bombJoker[i].getColor() == 5)
-                    jButtonBombJoker[i].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/BombDie.jpg"))));
+                    jButtonBombJoker[i].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/bombDie.jpg"))));
                 else
                     jButtonBombJoker[i].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/joker.jpg"))));
             } 
