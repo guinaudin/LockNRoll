@@ -14,6 +14,8 @@ public abstract class AbstractModel implements Observable {
     
     public abstract void makeTurn();
     
+    public abstract void rollDice();
+    
     public abstract Die selectBoardDie(int posX, int posY);
     
     public abstract Die selectRolledDie(int posX);
@@ -27,6 +29,8 @@ public abstract class AbstractModel implements Observable {
     public abstract void moveRolledDie(Die die, int posX, int posY, int selectedPosX);
     
     public abstract void moveBombJoker(Die die, int posX, int posY, int selectedPosX);
+    
+    public abstract boolean activateCleanRollJoker(int posX);
     
     public void addObserver(Observer obs) {
         this.listObserver.add(obs);
@@ -52,6 +56,7 @@ public abstract class AbstractModel implements Observable {
     public void notifyJokerObserver(Player player) {
         for(Observer obs : listObserver) {
              obs.updateBombJoker(player);
+             obs.updateCleanRollJoker(player);
         }
     }
 }

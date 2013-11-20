@@ -42,6 +42,14 @@ public abstract class AbstractControler {
         abstractModel.moveBombJoker(die, posX, posY, selectedPosX);
     }
     
+    public boolean activateCleanRollJoker(int posX) {
+        return abstractModel.activateCleanRollJoker(posX);
+    }
+    
+    public void rollDice() {
+        abstractModel.rollDice();
+    }
+    
     public void makeTurn() {
          abstractModel.makeTurn();
     }

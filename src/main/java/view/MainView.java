@@ -57,6 +57,7 @@ public class MainView extends JFrame implements Observer, ActionListener
     private int selectedPosY;
     private JProgressBar progressBarScore;
     private JLabel scoreLabel;
+    private boolean cleanRollJokerActivated;
     
     /**constructeur*/
     public MainView(AbstractControler controler) {
@@ -67,6 +68,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         selectedRolledDie = null;
         selectedBoardDie = null;
         selectedBombJoker = null;
+        cleanRollJokerActivated = false;
         this.buildFrame();
         this.buildMenuBar();
         
@@ -411,15 +413,24 @@ public class MainView extends JFrame implements Observer, ActionListener
                 this.selectOrMoveBombJoker(1);
             }
             else if(e.getActionCommand().equals("rollJokerButton0")) {
-                //this.selectOrMoveDie(3, 3);
+                cleanRollJokerActivated = this.activateCleanRollJoker(0);
             }
             else if(e.getActionCommand().equals("rollJokerButton1")) {
-                //this.selectOrMoveDie(3, 3);
+                cleanRollJokerActivated = this.activateCleanRollJoker(1);
             }
             else if((JButton)e.getSource() == rollButton) {
-                controler.makeTurn();
+                if(!cleanRollJokerActivated)
+                    controler.makeTurn();
+                else {
+                    controler.rollDice();
+                    cleanRollJokerActivated = false;
+                }
             }
         }
+    }
+    
+    private boolean activateCleanRollJoker(int posX) {
+        return controler.activateCleanRollJoker(posX);
     }
     
     private void selectOrMoveBombJoker(int posX) {
@@ -534,7 +545,6 @@ public class MainView extends JFrame implements Observer, ActionListener
 
     public void updateBoardDice(Board board) {
         Die[][] diceBoard = board.getDiceBoard();
-        
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
                 try {
@@ -560,12 +570,37 @@ public class MainView extends JFrame implements Observer, ActionListener
         }
     }
     
+    public void updateCleanRollJoker(Player player) {
+        try {
+            if(player.getCleanRollJokerActivated(0))
+                jButtonRollJoker[0].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/cleanRollActivated.jpg"))));
+            else if(player.getCleanRollJoker(0))
+                jButtonRollJoker[0].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/cleanRollJoker.jpg"))));
+            else
+                jButtonRollJoker[0].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/joker.jpg"))));
+            
+            if(player.getCleanRollJokerActivated(1)) 
+                jButtonRollJoker[1].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/cleanRollActivated.jpg"))));
+            else if(player.getCleanRollJoker(1))
+                jButtonRollJoker[1].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/cleanRollJoker.jpg"))));
+            else
+                jButtonRollJoker[1].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/joker.jpg"))));
+        }
+        catch (IOException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
     public void updateBombJoker(Player player) {
         Die[] bombJoker = player.getBombJoker();
         
         for(int i = 0; i < 2; i++) {
             try {
-                jButtonBombJoker[i].setIcon(new ImageIcon(this.getDieImage(bombJoker[i])));
+                if(bombJoker[i].getColor() == 5)
+                    jButtonBombJoker[i].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/BombDie.jpg"))));
+                else
+                    jButtonBombJoker[i].setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("images/dice/joker.jpg"))));
             } 
             catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
@@ -577,36 +612,27 @@ public class MainView extends JFrame implements Observer, ActionListener
         if(player.getScore() >= player.getJokerScore(player.getActualJokerScore()) 
         && player.getJokerScore(player.getActualJokerScore()) < player.getJokerScore(3)) {
             player.setActualJokerScore(player.getActualJokerScore() + 1);
-            if(player.getNbCleanRollJoker() > 0)
-                if(player.getCleanRollJoker(0)) 
+            if(player.getNbCleanRollJoker() < 2)
+                player.setNbCleanRollJoker(player.getNbCleanRollJoker() + 1);
+                if(!player.getCleanRollJoker(0)) 
                     player.setCleanRollJoker(true, 0);
-                else if(player.getCleanRollJoker(1)) 
+                else 
                     player.setCleanRollJoker(true, 1);
         }
         scoreLabel.setText("Score : " + player.getScore());
         
-        if(player.getScore() >= 2500) {
-            /*progressBarScore.setValue(
-                (int)((player.getScore() 
-                - ((int)(player.getScore()/1000) - 1)*1000 
-                - player.getJokerScore(player.getActualJokerScore())))*100/
-                (player.getJokerScore(player.getActualJokerScore()) 
-                - player.getJokerScore(player.getActualJokerScore() - 1) 
-                + ((int)(player.getScore()/1000) - 1)*1000));*/
-            
-            progressBarScore.setValue((int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore() - 1)))*100/(
-            player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1)));
-            
-            System.out.println(((int)(player.getScore()/1000) - 1)*1000 + "\n numerateur : " + (int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore())))*100);
-            System.out.println("denominateur : " + (player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1) + ((int)(player.getScore()/1000) - 1)*1000));
-            System.out.println("score % : " + (int)((player.getScore() - ((int)(player.getScore()/1000) - 1)*1000 - player.getJokerScore(player.getActualJokerScore())))*100/
-            (player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1) + ((int)(player.getScore()/1000) - 1)*1000));
+        if(player.getScore() > player.getJokerScore(player.getActualJokerScore()) && player.getScore() > 2500) {
+            player.setTwoLastJokerScore(1000);
+            if(player.getNbCleanRollJoker() < 2)
+                player.setNbCleanRollJoker(player.getNbCleanRollJoker() + 1);
+                if(!player.getCleanRollJoker(0)) 
+                    player.setCleanRollJoker(true, 0);
+                else 
+                    player.setCleanRollJoker(true, 1);
         }
-        else if(player.getJokerScore(player.getActualJokerScore()) > 250) {
+        if(player.getJokerScore(player.getActualJokerScore()) > 250) {
             progressBarScore.setValue((int)((player.getScore() - player.getJokerScore(player.getActualJokerScore() - 1)))*100/(
             player.getJokerScore(player.getActualJokerScore()) - player.getJokerScore(player.getActualJokerScore() - 1)));
-            //System.out.println("score % : " + (int)((player.getScore() - player.getJokerScore(player.getActualJokerScore() - 1)))*100/
-            //player.getJokerScore(player.getActualJokerScore()));
         }
         else
             progressBarScore.setValue((int)(player.getScore()*100/player.getJokerScore(player.getActualJokerScore())));
@@ -656,11 +682,8 @@ public class MainView extends JFrame implements Observer, ActionListener
                 else if(die.getValue() == 4)
                     img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/yellow/Yellow Die 4.jpg"));
             }
-            else if(die.getColor() == 5) {
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/BombDie.jpg"));
-            }
             else
-                img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/Empty Die.jpg"));
+                    img = ImageIO.read(getClass().getClassLoader().getResource("images/dice/Empty Die.jpg"));
         }
         else {
             if(die.getColor() == DieTypes.Color.BLUE.getInt()) {

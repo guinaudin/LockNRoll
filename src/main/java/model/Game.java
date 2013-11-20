@@ -34,13 +34,13 @@ public class Game extends AbstractModel{
         System.out.println("roll");
         int cpt = 0;
         int i = -1;
-        //caseTest(board, player)
         
-        //victory test
-        //rolldice
-        board.lockDice();
         caseTest.findCombinations(board, player);
         System.out.println();
+        board.lockDice();
+        
+        //victory test
+        
         
         //roll dice or not
         do {
@@ -56,6 +56,37 @@ public class Game extends AbstractModel{
         notifyScoreObserver(player);
         notifyBoardObserver(board);
         notifyJokerObserver(player);
+    }
+    
+    public void rollDice() {
+        board.rollDice();
+        
+        player.setNbCleanRollJoker(player.getNbCleanRollJoker() - 1);
+        
+        if(player.getCleanRollJokerActivated(0)) {
+            player.setCleanRollJokerActivated(false, 0);
+            player.setCleanRollJoker(false, 0);
+        }
+        else {
+            player.setCleanRollJokerActivated(false, 1);
+            player.setCleanRollJoker(false, 1);
+        }
+        
+        notifyBoardObserver(board);
+        notifyJokerObserver(player);
+    }
+    
+    public boolean activateCleanRollJoker(int posX) {
+        player.setCleanRollJokerActivated(!player.getCleanRollJokerActivated(posX), posX);
+        
+        if(posX == 0 && player.getCleanRollJokerActivated(0) && player.getCleanRollJokerActivated(1))
+            player.setCleanRollJokerActivated(false, 1);
+        else if(posX == 1 && player.getCleanRollJokerActivated(0) && player.getCleanRollJokerActivated(1))
+            player.setCleanRollJokerActivated(false, 0);
+        
+        notifyJokerObserver(player);
+        
+        return player.getCleanRollJokerActivated(0) || player.getCleanRollJokerActivated(1);
     }
 
     public Die selectBoardDie(int posX, int posY) {

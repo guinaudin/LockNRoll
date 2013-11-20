@@ -8,4 +8,5 @@ public interface Observer {
     public void updateRolledDice(Board board);
     public void updateScore(Player player);
     public void updateBombJoker(Player player);
+    public void updateCleanRollJoker(Player player);
 }

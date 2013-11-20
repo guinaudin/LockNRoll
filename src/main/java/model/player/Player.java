@@ -15,9 +15,9 @@ public class Player {
 
     public Player() {
         score = 0;
-        nbCleanRollJoker = 0;
+        nbCleanRollJoker = 2;
         nbBombJoker = 0;
-        cleanRollJoker = new boolean[] {false, false};
+        cleanRollJoker = new boolean[] {true, true};
         bombJoker = new Die[] {new Die(0, 0, false), new Die(0, 0, false)};
         cleanRollJokerActivated = new boolean[] {false, false};
         name = "";
@@ -95,5 +95,10 @@ public class Player {
     
     public void setNbBombJoker(int nbBombJoker) {
         this.nbBombJoker = nbBombJoker;
+    }
+    
+    public void setTwoLastJokerScore(int jokerScore) {
+        this.jokerScoreArray[3] = this.jokerScoreArray[3] + jokerScore;
+        this.jokerScoreArray[2] = this.jokerScoreArray[2] + jokerScore;
     }
 }
