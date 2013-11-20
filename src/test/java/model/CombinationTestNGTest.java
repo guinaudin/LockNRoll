@@ -387,6 +387,13 @@ public class CombinationTestNGTest {
                 new Die(2, DieTypes.Color.RED.getInt(), true), 
                 new Die(4, DieTypes.Color.GREEN.getInt(), true) },
             },
+            
+            { new Die[] {
+                new Die(2, DieTypes.Color.YELLOW.getInt(), true), 
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true),
+                new Die(2, DieTypes.Color.RED.getInt(), true), 
+                new Die(3, DieTypes.Color.YELLOW.getInt(), true) },
+            },
         };
     }
 

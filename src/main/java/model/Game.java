@@ -3,15 +3,18 @@ package model;
 import model.board.Board;
 import model.dice.Die;
 import model.player.Player;
+import view.IdView;
 
 public class Game extends AbstractModel{
     private Board board;
     private Player player;
     private CaseTest caseTest;
+    private IdView idView;
 
     public Game() {
         player = new Player();
         board = new Board();
+        idView = null;
         caseTest = new CaseTest(board, player);
         board.rollDice();
     }
@@ -40,7 +43,10 @@ public class Game extends AbstractModel{
         board.lockDice();
         
         //victory test
-        
+        System.out.println("places : " + board.getUnlockedPlaces() + "bomb : " + player.getNbBombJoker() + "rolljok : " + player.getNbCleanRollJoker());
+        if(board.getUnlockedPlaces() == 0 && player.getNbBombJoker() == 0 && player.getNbCleanRollJoker() == 0) {
+            idView = new IdView(player);
+        }
         
         //roll dice or not
         do {

@@ -1,8 +1,9 @@
 package model.player;
 
+import java.io.Serializable;
 import model.dice.Die;
 
-public class Player {
+public class Player implements Serializable {
     private String name;
     private int score;
     private boolean[] cleanRollJokerActivated;
@@ -15,9 +16,9 @@ public class Player {
 
     public Player() {
         score = 0;
-        nbCleanRollJoker = 2;
+        nbCleanRollJoker = 0;
         nbBombJoker = 0;
-        cleanRollJoker = new boolean[] {true, true};
+        cleanRollJoker = new boolean[] {false, false};
         bombJoker = new Die[] {new Die(0, 0, false), new Die(0, 0, false)};
         cleanRollJokerActivated = new boolean[] {false, false};
         name = "";
@@ -31,6 +32,10 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getScore() {

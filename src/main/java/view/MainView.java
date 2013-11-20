@@ -86,7 +86,7 @@ public class MainView extends JFrame implements Observer, ActionListener
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         startPagePanel = new JPanel(new BorderLayout());
-        imageMainView = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("images/LockNRoll.jpg")));
+        imageMainView = new JLabel(new ImageIcon(getClass().getResource("/images/LockNRoll.jpg")));
         startPagePanel.add(imageMainView);
         this.setContentPane(startPagePanel);
     }
@@ -328,13 +328,17 @@ public class MainView extends JFrame implements Observer, ActionListener
                     if (Desktop.isDesktopSupported())     
                     {
                         //on ouvre le pdf sur le bureau
-                        Desktop.getDesktop().open(new File(getClass().getClassLoader().getResource("pdf/LockNRoll.pdf").getPath()));
+                        Desktop.getDesktop().open(new File(getClass().getResource("LockNRoll.pdf").getPath()));
                     }
                 } 
                 catch (IOException ex) 
                 {
                     System.out.println(ex.getMessage());
                 }
+            }
+            else if(source == leaderBoardMenuItem)
+            {
+                LeaderBoardView leaderBoardView = new LeaderBoardView();
             }
             //si l'utilisateur clic sur "quitter"
             else if(source == quitMenuItem)
