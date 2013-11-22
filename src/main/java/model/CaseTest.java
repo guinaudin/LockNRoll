@@ -347,23 +347,23 @@ public class CaseTest {
         }
         else if(combinationTest.testSameColor(combination)) {
             player.setScore(player.getScore() + 40);
-            if(player.getNbBombJoker() < 2) {
+            /*if(player.getNbBombJoker() < 2) {
                 player.setNbBombJoker(player.getNbBombJoker() + 1);
                 if(player.getBombJokerDie(0).getValue() != 5)
                     player.setBombJokerDie(new Die(5,5, false), 0);
                 else
                     player.setBombJokerDie(new Die(5,5, false), 1);
-            }
+            }*/
         }
         else if(combinationTest.testSameNumber(combination)) {
             player.setScore(player.getScore() + 40);
-            if(player.getNbBombJoker() < 2) {
+            /*if(player.getNbBombJoker() < 2) {
                 player.setNbBombJoker(player.getNbBombJoker() + 1);
                 if(player.getBombJokerDie(0).getValue() != 5)
                     player.setBombJokerDie(new Die(5,5, false), 0);
                 else
                     player.setBombJokerDie(new Die(5,5, false), 1);
-            }
+            }*/
         }
         else if(combinationTest.testPairColorPairNumber(combination)) {
             player.setScore(player.getScore() + 20);
