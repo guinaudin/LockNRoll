@@ -18,17 +18,17 @@ import javax.swing.*;
 import model.player.LeaderBoard;
 import model.player.Player;
 
-/**classe qui demande à l'utilisateur les elements nescessaire pour jouer online ou offline*/
+/**classe qui demande les infos du joueur*/
 public class IdView extends JFrame implements KeyListener
 {
     //declaration des attributs Swing
-    private JTextField jtf1;
+    private JTextField nameField;
     
     private String playerName;
     private Player player;
-    private LeaderBoard tempLeaderBoard;
+    private LeaderBoard[] tempLeaderBoardArray;
+    private Boolean moveLeaderBoard;
     
-    /**constructeur*/
     public IdView(Player player)
     {
         //on appel le constructeur mere et on set le titre de la fenetre
@@ -36,6 +36,8 @@ public class IdView extends JFrame implements KeyListener
         //initialisation des attributs
         this.player = player;
         playerName = "";
+        tempLeaderBoardArray = new LeaderBoard[10];
+        moveLeaderBoard = false;
         //appel de la methode iitialisant la fenetre
         build();
     }
@@ -59,30 +61,30 @@ public class IdView extends JFrame implements KeyListener
         panel.setBackground(Color.WHITE);
         
         //on declare et on cree un nouveau panel
-        JPanel boxPanel1 = new JPanel();
+        JPanel boxPanel = new JPanel();
         //on utilise un BoxLayout sur l'axe des abscisses
-        boxPanel1.setLayout(new BoxLayout(boxPanel1, BoxLayout.X_AXIS));
+        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.X_AXIS));
         //on cree du vide tout autours du panel
-        boxPanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        boxPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         //on declare et on cree un JLabel
         JLabel labelName = new JLabel("Player Name : ");
         //on instancie un JTextField
-        jtf1 = new JTextField();
+        nameField = new JTextField();
         //on le rend evenementiel
-        jtf1.addKeyListener(this);
+        nameField.addKeyListener(this);
         //on lui donne une dimension
-        jtf1.setPreferredSize(new Dimension(150,30));
+        nameField.setPreferredSize(new Dimension(150,30));
         //on peut rentrer jusqu'a 15 caracteres
-        jtf1.setColumns(15);
+        nameField.setColumns(15);
         //on set une police
         Font police = new Font("Arial", Font.BOLD, 14);
-        jtf1.setFont(police);
+        nameField.setFont(police);
         //on ajoute les differents elements
-        boxPanel1.add(labelName);
-        boxPanel1.add(Box.createHorizontalStrut(10));
-        boxPanel1.add(jtf1);
-        panel.add(boxPanel1);
+        boxPanel.add(labelName);
+        boxPanel.add(Box.createHorizontalStrut(10));
+        boxPanel.add(nameField);
+        panel.add(boxPanel);
         //on ajoute le panel principal à la JFrame
         this.add(panel);
     }
@@ -99,7 +101,7 @@ public class IdView extends JFrame implements KeyListener
         //si l'utilisateur appuie sur ENTER
         if(e.getKeyCode() == KeyEvent.VK_ENTER)
         {
-            playerName = ("".equals(playerName)) ? (jtf1.getText()) : "Unnamed Player";
+            playerName = ("".equals(playerName))?(nameField.getText()) : "Unamed Player";
             //on recupere le texte dans le JTextField pour le nom du joueur
             player.setName(playerName);
             
@@ -107,9 +109,28 @@ public class IdView extends JFrame implements KeyListener
             
             try {
                 FileInputStream fichierOis = new FileInputStream("leaderboard.ser");
-                ObjectInputStream ois = new ObjectInputStream(fichierOis);
-                tempLeaderBoard = (LeaderBoard)ois.readObject();
-                ois.close();
+                if(fichierOis.available() != 0) {
+                    ObjectInputStream ois = new ObjectInputStream(fichierOis);
+                    tempLeaderBoardArray = (LeaderBoard[])ois.readObject();
+                    ois.close();
+                }
+                else {
+                    for(int i = 0; i < tempLeaderBoardArray.length; i++)
+                        tempLeaderBoardArray[i] = new LeaderBoard("Unamed Player", 0);
+                }
+
+                for(int i = tempLeaderBoardArray.length; i > 0 ; i--) {
+                    if(leaderBoard.getScore() >= tempLeaderBoardArray[i-1].getScore() && !moveLeaderBoard) {
+                        tempLeaderBoardArray[i-1] = leaderBoard;
+                        moveLeaderBoard = true;
+                    }
+                    else if(leaderBoard.getScore() >= tempLeaderBoardArray[i-1].getScore() && moveLeaderBoard) {
+                        if(i != 0) {
+                            tempLeaderBoardArray[i] = tempLeaderBoardArray[i-1];
+                            tempLeaderBoardArray[i-1] = leaderBoard;
+                        }
+                    }
+                }
             }
             catch (ClassNotFoundException ex) {
                 Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,15 +138,13 @@ public class IdView extends JFrame implements KeyListener
                 Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(IdView.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-            
+            }
             
             try {
-                
-                if(tempLeaderBoard.getScore() <= player.getScore()) {
+                if(moveLeaderBoard) {
                     FileOutputStream fichierOos = new FileOutputStream("leaderboard.ser");
                     ObjectOutputStream oos = new ObjectOutputStream(fichierOos);
-                    oos.writeObject(leaderBoard);
+                    oos.writeObject(tempLeaderBoardArray);
                     oos.flush();
                     oos.close();
                 }

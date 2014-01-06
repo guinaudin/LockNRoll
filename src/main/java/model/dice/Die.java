@@ -1,5 +1,6 @@
 package model.dice;
 
+/**Classe définissant le dé*/
 public class Die {
     protected int value;
     protected int color;

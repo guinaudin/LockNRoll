@@ -7,6 +7,6 @@ public interface Observable {
     public void addObserver(Observer obs);
     public void removeObserver();
     public void notifyBoardObserver(Board board);
-    public void notifyScoreObserver(Player player);
+    public void notifyScoreObserver(Player player, Board board);
     public void notifyJokerObserver(Player player);
 }

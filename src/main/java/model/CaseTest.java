@@ -4,6 +4,7 @@ import model.board.Board;
 import model.dice.Die;
 import model.player.Player;
 
+/**Classe chargé de détecter les combinaisons de dés pour les analyser*/
 public class CaseTest {
     private Board board;
     private Player player;
@@ -39,6 +40,7 @@ public class CaseTest {
             combination[i] = null;
     }
     
+    /**On recherche tous les tpes de combinaisons(lines, colonnes, diago, coins et cubes)*/
     public void findCombinations(Board board, Player player) {
         this.player = player;
         this.board = board;
@@ -58,6 +60,7 @@ public class CaseTest {
         this.clearBoard();
     }
     
+    /**On vide le plateau des combinaisons effacables*/
     private void clearBoard() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
@@ -70,6 +73,7 @@ public class CaseTest {
         }
     }
     
+    /**On fait une analyse de toutes les lignes*/
     public Boolean[][] findLineCombinations() {
         int j = 0;
         boolean clear;
@@ -116,6 +120,7 @@ public class CaseTest {
         return clearLineDiceBoard;
     }
     
+    /**On fait une analyse de toutes les colonnes*/
     public Boolean[][] findColumnCombinations() {
         int j = 0;
         int nbLockedDie = 0;
@@ -161,6 +166,7 @@ public class CaseTest {
         return clearColumnDiceBoard;
     }
     
+    /**On fait une analyse de toutes les diagonales*/
     public Boolean[][] findDiagonalCombinations() {
         int j = 0;
         boolean clear = false;
@@ -227,6 +233,7 @@ public class CaseTest {
         return clearDiagonalDiceBoard;
     }
     
+    /**On fait une analyse des 4 coins*/
     public Boolean[][] findCornerCombinations() {
         int j = 0;
         boolean clear = false;
@@ -266,6 +273,7 @@ public class CaseTest {
         return clearCornerDiceBoard;
     }
     
+    /**On fait une analyse de tous les cubes*/
     public Boolean[][] findCubeCombinations() {
         boolean clear = false;
         clearCubeDiceBoard = new Boolean[4][4];
@@ -313,6 +321,7 @@ public class CaseTest {
         return clearCubeDiceBoard;
     }
     
+    /**Calcul du score du joueur*/
     private boolean calculateScore(Die[] combination) {
         boolean clear = false;
         
@@ -347,23 +356,9 @@ public class CaseTest {
         }
         else if(combinationTest.testSameColor(combination)) {
             player.setScore(player.getScore() + 40);
-            /*if(player.getNbBombJoker() < 2) {
-                player.setNbBombJoker(player.getNbBombJoker() + 1);
-                if(player.getBombJokerDie(0).getValue() != 5)
-                    player.setBombJokerDie(new Die(5,5, false), 0);
-                else
-                    player.setBombJokerDie(new Die(5,5, false), 1);
-            }*/
         }
         else if(combinationTest.testSameNumber(combination)) {
             player.setScore(player.getScore() + 40);
-            /*if(player.getNbBombJoker() < 2) {
-                player.setNbBombJoker(player.getNbBombJoker() + 1);
-                if(player.getBombJokerDie(0).getValue() != 5)
-                    player.setBombJokerDie(new Die(5,5, false), 0);
-                else
-                    player.setBombJokerDie(new Die(5,5, false), 1);
-            }*/
         }
         else if(combinationTest.testPairColorPairNumber(combination)) {
             player.setScore(player.getScore() + 20);

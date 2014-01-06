@@ -1,6 +1,7 @@
 package model.board;
 import model.dice.Die;
 
+/**Classe définissant le plateau de jeu soient les 16 cases de jeu et les 4 cases pour tirer les dés aléatoirement*/
 public class Board {
     private Die[] rolledDice;
     private Die[][] diceBoard;
@@ -11,7 +12,7 @@ public class Board {
         diceBoard = new Die[4][4];
         rolledDice = new Die[4];
 
-        //Besoin d'init le board
+        //Initialisation du plateau et des 4 cases pour lancer les dés
         for(int i = 0; i < 4; i++) {
             rolledDice[i] = new Die(0, 0, false);
             for(int j = 0; j < 4; j++) {
@@ -20,7 +21,9 @@ public class Board {
         }
     }
     
+    /**Lancement des dés aléaoirement*/
     public void rollDice() {
+        //On lance entre 1 et 4 dés selon le nombre de palces restantes
         for(int i = 0; i < 4; i++) {
             if(i < unlockedPlaces)
                 rolledDice[i] = new Die((int)Math.round(Math.random() * 3 + 1),(int)Math.round(Math.random() * 3 + 1), false);
@@ -29,6 +32,7 @@ public class Board {
         }
     }
     
+    /**Blocage des dés sur le plateau*/
     public void lockDice() {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {

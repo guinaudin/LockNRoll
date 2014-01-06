@@ -2,6 +2,7 @@ package model;
 
 import model.dice.Die;
 
+/**Classe analysant les combinaisons de 4 dés*/
 public class CombinationTest {
     private int color;
     private int value;
@@ -10,6 +11,7 @@ public class CombinationTest {
 
     }
     
+    /**Détection de la combinaison même nombre et même couleur*/
     public boolean testSameColorSameNumber(Die[] combination) {
         int i = 0;
         
@@ -26,18 +28,22 @@ public class CombinationTest {
         return i == 3;
     }
     
+    /**Détection de la combinaison tous les nombres et même couleur*/
     public boolean testSameColorEachNumber(Die[] combination) {
         return this.testSameColor(combination) && this.testEachNumber(combination);
     }
     
+    /**Détection de la combinaison toutes les couleurs et même nombre*/
     public boolean testEachColorSameNumber(Die[] combination) {
         return this.testEachColor(combination) && this.testSameNumber(combination);
     }
     
+    /**Détection de la combinaison toutes les couleurs et tous les nombres*/
     public boolean testEachColorEachNumber(Die[] combination) {
         return this.testEachColor(combination) && this.testEachNumber(combination);
     }
     
+    /**Détection de la combinaison avec une paire de même couleur et même nombre*/
     public boolean testTwoPair(Die[] combination) {
         int i = 0;
         int colorBis = 0;
@@ -73,6 +79,7 @@ public class CombinationTest {
         return pairNumber1[1] != null && pairNumber2[1] != null;
     }
     
+    /**Détection de la combinaison avec une paire de couleur*/
     public boolean testPairColor(Die[] combination) {
         int i = 0;
         int colorBis = 0;
@@ -99,6 +106,7 @@ public class CombinationTest {
         return numColor == 2 && numColorBis == 2;
     }
     
+    /**Détection de la combinaison avec une paire de nombre*/
     public boolean testPairNumber(Die[] combination) {
         int i = 0;
         int valueBis = 0;
@@ -125,6 +133,7 @@ public class CombinationTest {
         return numValue == 2 && numValueBis == 2;
     }
     
+    /**Détection de la combinaison avec une paire de nombre différents et de même couleur*/
     public boolean testPairColorPairNumber(Die[] combination) {
         int i = 0;
         int colorBis = 0;
@@ -180,6 +189,7 @@ public class CombinationTest {
         return pairNumber1[1] != null && pairNumber2[1] != null && pairNumber1[0] != null && pairNumber2[0] != null;
     }
     
+    /**Détection de la combinaison ayant même couleur*/
     public boolean testSameColor(Die[] combination) {
         int i = 0;
         
@@ -195,6 +205,7 @@ public class CombinationTest {
         return i == 3;
     }
     
+    /**Détection de la combinaison ayant même nombre*/
     public boolean testSameNumber(Die[] combination) {
         int i = 0;
         
@@ -210,6 +221,7 @@ public class CombinationTest {
         return i == 3;
     }
     
+    /**Détection de la combinaison ayant tous les nombres*/
     public boolean testEachNumber(Die[] combination) {
         int i = -1;
         int j;
@@ -217,17 +229,17 @@ public class CombinationTest {
         
         do{
             i++;
-            /**reinitialisation des variables de la boucle interne*/
+            //reinitialisation des variables de la boucle interne
             cpt = 0;
             j = 0;
             
-            /**boucle tant que on n'a pas verifié l'ensemble des numeros precedents*/
+            //boucle tant que on n'a pas verifié l'ensemble des numeros precedents
             while(i > j)
             {             
-                /**si le numero est different du jieme precedent numero*/
+                //si le numero est different du jieme precedent numero
                 if(combination[i].getValue() != combination[j].getValue())
                     cpt++;
-                /**on verifie le numero suivant*/
+                //on verifie le numero suivant
                 j++;
             } 
         }while(cpt == i && i < 3);
@@ -235,6 +247,7 @@ public class CombinationTest {
         return cpt == i && i == 3;
     }
     
+    /**Détection de la combinaison ayant toutes les couleurs*/
     public boolean testEachColor(Die[] combination) {
         int i = -1;
         int j;
@@ -242,17 +255,17 @@ public class CombinationTest {
         
         do{
             i++;
-            /**reinitialisation des variables de la boucle interne*/
+            //reinitialisation des variables de la boucle interne
             cpt = 0;
             j = 0;
             
-            /**boucle tant que on n'a pas verifié l'ensemble des numeros precedents*/
+            //boucle tant que on n'a pas verifié l'ensemble des numeros precedents
             while(i > j)
             {             
-                /**si le numero est different du jieme precedent numero*/
+                //si le numero est different du jieme precedent numero
                 if(combination[i].getColor() != combination[j].getColor())
                     cpt++;
-                /**on verifie le numero suivant*/
+                //on verifie le numero suivant*/
                 j++;
             } 
         }while(cpt == i && i < 3);

@@ -47,25 +47,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
             }
         },   
         };
@@ -90,25 +90,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
             }
         },   
         };
@@ -133,25 +133,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false)},
             }
         },   
         };
@@ -176,25 +176,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(4, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(4, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
             }
         },   
         };
@@ -219,25 +219,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
             }
         },   
         };
@@ -262,25 +262,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false)},
             }
         },   
         };
@@ -305,25 +305,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(2, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(2, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(3, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(3, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
             }
         },   
         };
@@ -348,25 +348,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(3, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(3, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(3, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(3, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false)},
             }
         },   
         };
@@ -391,25 +391,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false)},
             }
         },   
         };
@@ -435,25 +435,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(3, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(3, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(1, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(1, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false)},
             }
         },   
         };
@@ -479,25 +479,25 @@ public class CaseTestNGTest {
         return new Object[][] {
         { 
             new Die[][] {
-                {new Die(1, DieTypes.Color.GREEN.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true)},
+                {new Die(1, DieTypes.Color.GREEN.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false)},
 
-                {new Die(3, DieTypes.Color.RED.getInt(), true),
-                new Die(3, DieTypes.Color.GREEN.getInt(), true),
-                new Die(4, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.YELLOW.getInt(), true)},
+                {new Die(3, DieTypes.Color.RED.getInt(), false),
+                new Die(3, DieTypes.Color.GREEN.getInt(), false),
+                new Die(4, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.YELLOW.getInt(), false)},
 
-                {new Die(1, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(4, DieTypes.Color.GREEN.getInt(), true),
-                new Die(4, DieTypes.Color.RED.getInt(), true)},
+                {new Die(1, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(4, DieTypes.Color.GREEN.getInt(), false),
+                new Die(4, DieTypes.Color.RED.getInt(), false)},
 
-                {new Die(2, DieTypes.Color.BLUE.getInt(), true),
-                new Die(2, DieTypes.Color.YELLOW.getInt(), true),
-                new Die(2, DieTypes.Color.RED.getInt(), true),
-                new Die(2, DieTypes.Color.GREEN.getInt(), true)},
+                {new Die(2, DieTypes.Color.BLUE.getInt(), false),
+                new Die(2, DieTypes.Color.YELLOW.getInt(), false),
+                new Die(2, DieTypes.Color.RED.getInt(), false),
+                new Die(2, DieTypes.Color.GREEN.getInt(), false)},
             }
         },   
         };

@@ -28,7 +28,6 @@ import observer.Observer;
 /**classe qui met en place la page d'acceuil*/
 public class MainView extends JFrame implements Observer, ActionListener
 {  
-    //declaration d'un objet Desktop et d'un url
     private Board board;
     private Desktop desktop = null;
     private java.net.URI url;
@@ -60,7 +59,6 @@ public class MainView extends JFrame implements Observer, ActionListener
     private boolean cleanRollJokerActivated;
     private LeaderBoardView leaderBoardView;
     
-    /**constructeur*/
     public MainView(AbstractControler controler) {
         super("Lock N Roll");
         this.controler = controler;
@@ -145,7 +143,6 @@ public class MainView extends JFrame implements Observer, ActionListener
         boardFlowPanel.setBackground(Color.WHITE); 
         boardPanel = new JPanel();
         boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
-        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         boardPanel.setBackground(Color.WHITE); 
         
         jButtonDiceBoard = new JButton[4][4];
@@ -155,7 +152,6 @@ public class MainView extends JFrame implements Observer, ActionListener
         
         JPanel dicePanel = new JPanel();
         dicePanel.setLayout(new BoxLayout(dicePanel, BoxLayout.X_AXIS));
-        //topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         dicePanel.setBackground(Color.WHITE); 
         
         //creation d'un objet JPanel
@@ -312,9 +308,9 @@ public class MainView extends JFrame implements Observer, ActionListener
                     File pdfCree = new File("LockNRoll rules.pdf");
                     // Extraction du PDF qui se situe dans l'archive
                     FileOutputStream fos = new FileOutputStream(pdfCree);
-                    while (pdf.available() > 0) {
+                    while(pdf.available() > 0) {
                           fos.write(pdf.read());
-                    }   // while (pdfInJar.available() > 0)
+                    }
                     fos.close();
                     // Ouverture du PDF
                     Desktop.getDesktop().open(pdfCree);
@@ -416,6 +412,7 @@ public class MainView extends JFrame implements Observer, ActionListener
                     cleanRollJokerActivated = false;
                 }
                 else {
+                    controler.makeTurn();
                     controler.rollDice();
                     cleanRollJokerActivated = false;
                 }
@@ -599,16 +596,18 @@ public class MainView extends JFrame implements Observer, ActionListener
     }
     
     @Override
-    public void updateScore(Player player) {
+    public void updateScore(Player player, Board board) {
         if(player.getScore() >= player.getJokerScore(player.getActualJokerScore()) 
         && player.getJokerScore(player.getActualJokerScore()) < player.getJokerScore(3)) {
             player.setActualJokerScore(player.getActualJokerScore() + 1);
             if(player.getNbCleanRollJoker() < 2)
                 player.setNbCleanRollJoker(player.getNbCleanRollJoker() + 1);
+            if(board.getUnlockedPlaces() != 0) {
                 if(!player.getCleanRollJoker(0)) 
                     player.setCleanRollJoker(true, 0);
                 else 
                     player.setCleanRollJoker(true, 1);
+            }
         }
         scoreLabel.setText("Score : " + player.getScore());
         
@@ -616,10 +615,12 @@ public class MainView extends JFrame implements Observer, ActionListener
             player.setTwoLastJokerScore(1000);
             if(player.getNbCleanRollJoker() < 2)
                 player.setNbCleanRollJoker(player.getNbCleanRollJoker() + 1);
+            if(board.getUnlockedPlaces() != 0) {
                 if(!player.getCleanRollJoker(0)) 
                     player.setCleanRollJoker(true, 0);
                 else 
                     player.setCleanRollJoker(true, 1);
+            }
         }
         if(player.getJokerScore(player.getActualJokerScore()) > 250) {
             progressBarScore.setValue((int)((player.getScore() - player.getJokerScore(player.getActualJokerScore() - 1)))*100/(
